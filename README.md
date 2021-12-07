@@ -1,17 +1,37 @@
-# horoscope_sirius_2021
+# Astrology magic
 
-A new Flutter project.
+## Идея
+Идея сделать гороскоп ришла к нам после того, как мы решили проверить нашу совместимость в работе. Тогда мы обнаружили, что не существует хороших мобильных приложений с гороскопами и решили сделать свой. Наше приложение будет выделяться цепляющим дизайном, уникальным гороскопом и возможностью составить свой гороскоп с помощью искусственного интеллекта, а также проверить совместимость с другими знаками. 
 
-## Getting Started
+## Экраны
+### Регистрация
+    - Логотип
+    - Поля для ввода данных
+    - Кнопка зарегистрироваться
+### Главный экран
+    - Меню 
+### Список знаков зодиака
+    - Список карточек со знаками зодиака
+### Детальное описание гороскопа
+    - Картинка со знаком зодиака
+    - Диаграммы с данными в процентах 
+    - Гороскоп
+### Выбор знаков зодиака для совместимости
+    - Два круговых списка с карточками со знаками зодиака
+### Профиль
+    - Поля с информацией о пользователе
+    - Кнопка изменить/сохранить изменения
 
-This project is a starting point for a Flutter application.
+## Дизайн
+ - [Дизайн](https://graphicriver.net/item/astro-app-ui-astrology-horoscope-app/29881214)
 
-A few resources to get you started if this is your first Flutter project:
+## Работа с сетью
+ - [Гороскоп](https://ignio.com/static/r/public/export/xml.html)
+ - [Искусственный интеллект](https://zeapi.yandex.net/lab/api/yalm/text3)
+ - [Авторизация и хранение данных](https://firebase.google.com/)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Локальное хранилище
+    - Уникальный гороскоп (обновляется каждый день)
+    - Совместимость
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 # horoscope_sirius_2021
