@@ -20,7 +20,7 @@ class GlowText extends StatelessWidget {
           Shadow(
             offset: Offset(0, 0),
             blurRadius: 3.0,
-            color: Color.fromARGB(255, 0, 0, 0),
+            color: Color(0xFF000000),
           ),
           Shadow(
             offset: Offset(0.5, 0.5),
