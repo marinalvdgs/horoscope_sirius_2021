@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 
 class GlowText extends StatelessWidget {
   final String text;
-  final double fontSize;
+  final TextStyle textStyle;
   const GlowText({
     Key? key,
     required this.text,
-    required this.fontSize,
+    required this.textStyle,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
+      style: textStyle.copyWith(
         color: Colors.white,
-        fontSize: fontSize,
         shadows: const <Shadow>[
           Shadow(
             offset: Offset(0, 0),

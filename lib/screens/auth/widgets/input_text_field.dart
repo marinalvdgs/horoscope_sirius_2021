@@ -21,14 +21,22 @@ class InputTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         controller: controller,
+        style: const TextStyle().copyWith(color: Colors.white, fontSize: 20),
+        cursorColor: Colors.white,
         inputFormatters: pattern == null
             ? []
             : [FilteringTextInputFormatter.allow(pattern!)],
         decoration: InputDecoration(
-          border: InputBorder.none,
+          border: const OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          filled: true,
+          fillColor: const Color(0x33081448),
           prefixIcon: Icon(icon, color: Colors.white),
-          labelText: hintText,
-          labelStyle: const TextStyle().copyWith(color: Colors.white),
+          hintText: hintText,
+          hintStyle:
+              const TextStyle().copyWith(color: Colors.white, fontSize: 20),
         ),
       ),
     );

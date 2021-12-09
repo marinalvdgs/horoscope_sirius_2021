@@ -14,29 +14,27 @@ class SpacePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [
-                Color(0xFF1F0660),
-                Color(0xFF0E0054),
-                Color(0xFF210535),
-              ],
-              transform: GradientRotation(pi / 2),
-            ),
-            image: DecorationImage(
-              image: const AssetImage('assets/background.jpg'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  const Color(0xFF210535).withOpacity(0.2), BlendMode.dstATop),
-            ),
-          ),
-          child: Column(
-            children: [
-              const SizedBox(height: kBottomNavigationBarHeight),
-              Flexible(child: body),
+      body: Container(
+        padding: const EdgeInsets.only(top: 48),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFF1F0660),
+              Color(0xFF0E0054),
+              Color(0xFF210535),
             ],
-          )),
+            transform: GradientRotation(pi / 2),
+          ),
+          image: DecorationImage(
+            image: const AssetImage('assets/background.jpg'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                const Color(0xFF210535).withOpacity(0.2), BlendMode.dstATop),
+          ),
+        ),
+        child:
+            SizedBox(height: MediaQuery.of(context).size.height, child: body),
+      ),
     );
   }
 }
