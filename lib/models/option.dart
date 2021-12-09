@@ -8,8 +8,8 @@ class Option {
 }
 
 final options = [
-  Option(image: Image.asset('assets/images/scales.jpg'), title: "First title"),
-  Option(image: Image.asset('assets/images/scales.jpg'), title: "First title"),
-  Option(image: Image.asset('assets/images/scales.jpg'), title: "First title"),
-  Option(image: Image.asset('assets/images/scales.jpg'), title: "First title"),
+  Option(image: Image.asset('assets/horoscope.png'), title: "Horoscope"),
+  Option(image: Image.asset('assets/compatibility.png'), title: "Compatibility"),
+  Option(image: Image.asset('assets/personal.png'), title: "Personal"),
+  Option(image: Image.asset('assets/profile.png'), title: "Profile"),
 ];

@@ -1,28 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/models/option.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _myListView(context);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text("Astrology Magic",
+                textAlign: TextAlign.left,
+                style: GoogleFonts.sairaCondensed(
+                    textStyle: Theme.of(context).textTheme.headline4,
+                    color: Colors.white,
+                    fontSize: 40,
+                ))
+            ),
+          Expanded(
+              child: Center(child: selectListView(context))
+          )
+        ]
+    );
   }
 }
 
-Widget _myListView(BuildContext context) {
-
-  return ListView.builder(
-    physics: BouncingScrollPhysics(
-        parent: AlwaysScrollableScrollPhysics()),
+Widget selectListView(BuildContext context) {
+  return  ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
     itemCount: options.length,
     itemBuilder: (context, index) {
-      return Container(
-        margin: EdgeInsets.all(30),
-        height: 100,
+      return
+        Container(
+        margin: EdgeInsets.all(10),
+        height: 120,
         alignment: Alignment.centerLeft,
-        padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: new LinearGradient(
+          borderRadius: BorderRadius.circular(15),
+          gradient: const LinearGradient(
             colors: [
               Color(0xFF010630),
               Color(0xFF071345),
@@ -31,32 +49,33 @@ Widget _myListView(BuildContext context) {
             end: Alignment.centerRight,
             stops: [0.25, 0.90],
           ),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Color(0xFF101012),
-          //     offset: Offset(-12, 12),
-          //     blurRadius: 8,
-          //   ),
-          // ],
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.deepPurple,
+              // offset: Offset(-1, 1),
+              blurRadius: 3,
+            ),
+          ],
         ),
-          // elevation: 10,//                   <-- Card widget
-          child: ListTile(
-            trailing: Image.asset("assets/images/scales.jpg"),
-            title: Text(options[index].title),
-          ),
+
+        // elevation: 10,//                   <-- Card widget
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(30, 10, 10, 10),
+                  child: Text(options[index].title,
+                      style: GoogleFonts.ubuntuMono(
+                          textStyle: Theme.of(context).textTheme.headline4,
+                          letterSpacing: 3,
+                          color: Colors.white,
+                          fontSize: 20,
+                      )))),
+                options[index].image
+            ]),
       );
-      // return Card(
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(15.0),
-      //   ),//
-      //   elevation: 10,//                   <-- Card widget
-      //   child: ListTile(
-      //     leading: Image.asset("assets/images/scales.jpg"),
-      //     title: Text(options[index].title),
-      //   ),
-      //   margin: EdgeInsets.fromLTRB(20, 20, 10, 10),
-      //   color: Color(0xFF010630)
-      // );
     },
   );
 }
