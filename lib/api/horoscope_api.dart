@@ -29,8 +29,8 @@ Map<String, Horo> parseSigns(String data) {
   return result;
 }
 
-Future<Map<String, Horo>> getHoros() async {
-  return await downloadData("https://ignio.com/r/export/utf/xml/daily/com.xml").then((result) {
+Future<Map<String, Horo>> getHoros(url) async {
+  return await downloadData(url).then((result) {
       return parseSigns(result);
   });
 }
