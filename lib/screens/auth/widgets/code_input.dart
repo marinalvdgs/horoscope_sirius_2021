@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import 'package:horoscope_sirius_2021/common/style.dart';
+import 'package:horoscope_sirius_2021/services/auth_service.dart';
+
 class CodeInput extends StatefulWidget {
-  const CodeInput({Key? key}) : super(key: key);
+  final Function onComplete;
+  final Function onError;
+  const CodeInput({
+    Key? key,
+    required this.onComplete,
+    required this.onError,
+  }) : super(key: key);
 
   @override
   State<CodeInput> createState() => _CodeInputState();
@@ -62,7 +70,12 @@ class _CodeInputState extends State<CodeInput> {
             padding: const EdgeInsets.fromLTRB(18, 0, 16, 16),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: buttonColor),
-              onPressed: () {},
+              onPressed: () {
+                firebaseServise.state.confirmCode(code, widget.onComplete,
+                    (error) {
+                  widget.onError(error);
+                });
+              },
               child: Text(
                 'Подтвердить',
                 style: buttonTextStyle,

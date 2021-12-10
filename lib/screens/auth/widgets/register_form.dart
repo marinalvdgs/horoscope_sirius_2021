@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horoscope_sirius_2021/common/error_message.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/code_input.dart';
@@ -125,18 +126,24 @@ class _RegisterFormState extends State<RegisterForm> {
                           firebaseServise.state.signInWithPhone(
                               phoneNumber: phoneController.text,
                               onComplete: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MenuScreen()));
+                                navigateToHome(context);
                               },
+                              onError: (error) =>
+                                  ErrorMessage.show(context, error: error),
                               onCodeSent: (_) {
                                 showDialog(
                                   context: context,
                                   barrierDismissible: false,
-                                  builder: (context) => const Dialog(
+                                  builder: (context) => Dialog(
                                     backgroundColor: Colors.transparent,
-                                    child: CodeInput(),
+                                    child: CodeInput(
+                                      onComplete: () {
+                                        navigateToHome(context);
+                                      },
+                                      onError: (error) => ErrorMessage.show(
+                                          context,
+                                          error: error),
+                                    ),
                                   ),
                                 );
                               });
@@ -156,5 +163,10 @@ class _RegisterFormState extends State<RegisterForm> {
         ],
       ),
     ).listenTo(userService);
+  }
+
+  Future<dynamic> navigateToHome(BuildContext context) {
+    return Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MenuScreen()));
   }
 }

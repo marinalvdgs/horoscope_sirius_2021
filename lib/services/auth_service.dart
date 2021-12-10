@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
+const errorText = 'Something went wrong';
+
 final firebaseServise =
     RM.inject<FirebaseService>(() => FirebaseService(), onInitialized: (s) {
   print('Initialized');
@@ -21,7 +23,8 @@ class FirebaseService {
   Future<void> signInWithPhone(
       {required String phoneNumber,
       required Function onComplete,
-      required Function(String) onCodeSent}) async {
+      required Function(String) onCodeSent,
+      required Function(String) onError}) async {
     await auth!.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (credential) async {
@@ -30,10 +33,13 @@ class FirebaseService {
         print(user);
         if (user != null) {
           onComplete();
+        } else {
+          onError(errorText);
         }
       },
       verificationFailed: (exception) {
         print(exception.message);
+        onError(exception.message ?? errorText);
       },
       codeSent: (verificationId, resendToken) {
         this.verificationId = verificationId;
@@ -46,7 +52,8 @@ class FirebaseService {
     );
   }
 
-  Future<void> confirmCode(String code, Function onComplete) async {
+  Future<void> confirmCode(
+      String code, Function onComplete, Function(String) onError) async {
     AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: code);
 
@@ -56,6 +63,8 @@ class FirebaseService {
 
     if (user != null) {
       onComplete();
+    } else {
+      onError(errorText);
     }
   }
 
