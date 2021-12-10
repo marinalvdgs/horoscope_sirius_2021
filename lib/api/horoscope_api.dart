@@ -1,7 +1,4 @@
 import 'dart:collection';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:horoscope_sirius_2021/models/horo.dart';
 import 'package:xml2json/xml2json.dart';
@@ -23,10 +20,17 @@ Future<String> downloadData(String url) async {
 Map<String, Horo> parseSigns(String data) {
   Map<String, dynamic> temp = json.decode(data);
   Map<String, Horo> result = HashMap();
+  int counter = 0;
   for (String sign in signs) {
       var t = temp['horo'][sign];
+      t['id'] = counter++;
       result[sign] = Horo.fromJson(t);
   }
   return result;
+}
 
+Future<Map<String, Horo>> getHoros() async {
+  return await downloadData("https://ignio.com/r/export/utf/xml/daily/com.xml").then((result) {
+      return parseSigns(result);
+  });
 }
