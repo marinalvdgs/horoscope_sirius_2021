@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:horoscope_sirius_2021/common/constants.dart';
+import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/common_widgets/glow_text.dart';
 
 class AstrologyLogo extends StatefulWidget {
