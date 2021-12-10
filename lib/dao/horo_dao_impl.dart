@@ -9,10 +9,6 @@ class HoroDaoImpl extends HoroDao {
   HoroDaoImpl(this._box);
 
   @override
-  Future<List<Horo>> getAll() async =>
-      _box.values.map((e) => e.toHoro()).toList();
-
-  @override
   Future<void> save(Horo horo) async =>
       _box.put(horo.id, HoroHiveModel.fromHoro(horo));
 
@@ -23,5 +19,4 @@ class HoroDaoImpl extends HoroDao {
   Future<Horo?> getItem(int id) async {
     return _box.get(id)?.toHoro();
   }
-
 }
