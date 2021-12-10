@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/code_input.dart';
+import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
+import 'package:horoscope_sirius_2021/services/auth_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
@@ -110,36 +112,47 @@ class _RegisterFormState extends State<RegisterForm> {
               ],
             ),
           ),
-          Material(
-            child: InkWell(
-              onTap: allFieldFilled
-                  ? () {
-                      userService.state.setUser(
-                        UserInfo(
-                            name: nameController.text,
-                            birth: birthController.text,
-                            phone: phoneController.text),
-                      );
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) => const Dialog(
-                          backgroundColor: Colors.transparent,
-                          child: CodeInput(),
-                        ),
-                      );
-                    }
-                  : null,
-              child: Ink(
-                color:
-                    allFieldFilled ? buttonColor : buttonColor.withOpacity(0.8),
-                height: kBottomNavigationBarHeight,
-                child: Center(
-                  child: Text('ПРОДОЛЖИТЬ', style: buttonTextStyle),
+          On<Widget>(() => Material(
+                child: InkWell(
+                  onTap: allFieldFilled && firebaseServise.state.auth != null
+                      ? () {
+                          userService.state.setUser(
+                            UserInfo(
+                                name: nameController.text,
+                                birth: birthController.text,
+                                phone: phoneController.text),
+                          );
+                          firebaseServise.state.signInWithPhone(
+                              phoneNumber: phoneController.text,
+                              onComplete: () {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MenuScreen()));
+                              },
+                              onCodeSent: (_) {
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => const Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    child: CodeInput(),
+                                  ),
+                                );
+                              });
+                        }
+                      : null,
+                  child: Ink(
+                    color: allFieldFilled
+                        ? buttonColor
+                        : buttonColor.withOpacity(0.8),
+                    height: kBottomNavigationBarHeight,
+                    child: Center(
+                      child: Text('ПРОДОЛЖИТЬ', style: buttonTextStyle),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          )
+              )).listenTo(firebaseServise)
         ],
       ),
     ).listenTo(userService);
