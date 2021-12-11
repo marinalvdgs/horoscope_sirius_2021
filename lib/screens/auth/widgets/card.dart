@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/option.dart';
 
 class CardInstance extends StatelessWidget {
-  final Option option;
+  final CardOption option;
 
   const CardInstance({Key? key, required this.option}) : super(key: key);
 
@@ -17,53 +18,37 @@ class CardInstance extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            gradient: const LinearGradient(
-              colors: [
-                Color(0xFF010630),
-                Color(0xFF071345),
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              stops: [0.25, 0.90],
-            ),
+            gradient: cardGradient,
             boxShadow: const [
-              BoxShadow(
-                color: Colors.deepPurple,
-                blurRadius: 3,
-              ),
+              cardShadow,
             ],
           ),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => debugPrint("hello"),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(30, 10, 10, 10),
-                                child: Text(option.title,
-                                    style: GoogleFonts.ubuntuMono(
-                                      textStyle:
-                                          Theme.of(context).textTheme.headline4,
-                                      letterSpacing: 2,
-                                      color: Colors.white,
-                                      fontSize: 26,
-                                    )))),
-                        FittedBox(
-                          fit: BoxFit.none,
+            borderRadius: BorderRadius.circular(15),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () => debugPrint("TODO: Tap on card:"),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
                           child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              child: option.image),
-                        )
-                      ]),
-                ),
-              )),
+                              padding:
+                                  const EdgeInsets.fromLTRB(30, 10, 10, 10),
+                              child:
+                                  Text(option.title, style: buttonTextStyle))),
+                      FittedBox(
+                        fit: BoxFit.none,
+                        child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                            child: option.image),
+                      )
+                    ]),
+              ),
+            ),
+          ),
         ),
       ),
     );
