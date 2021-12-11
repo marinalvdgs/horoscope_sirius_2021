@@ -38,6 +38,12 @@ class _AstrologyLogoState extends State<AstrologyLogo>
     super.initState();
   }
 
+  @override
+  dispose() {
+    keyboardSubscription.cancel();
+    super.dispose();
+  }
+
   late StreamSubscription<bool> keyboardSubscription;
   @override
   Widget build(BuildContext context) {

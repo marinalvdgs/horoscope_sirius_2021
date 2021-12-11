@@ -21,7 +21,7 @@ class _AuthScreenState extends State<AuthScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Container(
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(24),

@@ -5,8 +5,8 @@ import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/services/auth_service.dart';
 
 class CodeInput extends StatefulWidget {
-  final Function onComplete;
-  final Function onError;
+  final Function() onComplete;
+  final Function(String) onError;
   const CodeInput({
     Key? key,
     required this.onComplete,
