@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 const errorText = 'Something went wrong';
 
 final firebaseServise =
     RM.inject<FirebaseService>(() => FirebaseService(), onInitialized: (s) {
-  print('Initialized');
   s!.init();
 }, isLazy: false);
 
@@ -30,7 +30,6 @@ class FirebaseService {
       verificationCompleted: (credential) async {
         UserCredential userCredential = await signInWithCredential(credential);
         User? user = getUserWithCreds(userCredential);
-        print(user);
         if (user != null) {
           onComplete();
         } else {
@@ -38,7 +37,7 @@ class FirebaseService {
         }
       },
       verificationFailed: (exception) {
-        print(exception.message);
+        debugPrint(exception.message);
         onError(exception.message ?? errorText);
       },
       codeSent: (verificationId, resendToken) {
@@ -46,8 +45,8 @@ class FirebaseService {
         onCodeSent(verificationId);
       },
       codeAutoRetrievalTimeout: (verificationId) {
-        print(verificationId);
-        print('Timeout');
+        debugPrint(verificationId);
+        debugPrint('Timeout');
       },
     );
   }
