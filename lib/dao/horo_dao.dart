@@ -1,10 +1,14 @@
 
-import 'package:horoscope_sirius_2021/models/horo.dart';
+import 'package:horoscope_sirius_2021/models/full_horo.dart';
 
 abstract class HoroDao {
-  Future<void> save(Horo horo);
+  Future<void> save(FullHoro horo);
 
-  Future<Horo?> getItem(int id);
+  Future<void> saveAll(List<FullHoro> horos);
 
-  Future<void> delete(Horo item);
+  Future<FullHoro?> getItem(String sign);
+
+  Future<List<FullHoro>> getAll();
+
+  Future<void> delete(FullHoro item);
 }

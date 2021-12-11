@@ -1,17 +1,20 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:horoscope_sirius_2021/dao/horo_model.dart';
+import 'package:horoscope_sirius_2021/models/horo.dart';
 
 class HiveBuilder {
-  final Box<HoroHiveModel> horoBox;
+  final Box<FullHoroHiveModel> box;
 
-  HiveBuilder._(this.horoBox);
+
+  HiveBuilder._(this.box);
 
   static Future<HiveBuilder> build() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(HoroHiveModelAdapter());
+    Hive.registerAdapter(HoroAdapter());
+    Hive.registerAdapter(FullHoroHiveModelAdapter());
     return HiveBuilder._(
-      await Hive.openBox('feed'),
+      await Hive.openBox('horo'),
     );
   }
 }
