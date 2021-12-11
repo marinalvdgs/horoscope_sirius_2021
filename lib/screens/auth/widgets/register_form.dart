@@ -4,6 +4,7 @@ import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/code_input.dart';
 import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
+import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 import 'package:horoscope_sirius_2021/services/auth_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -126,7 +127,7 @@ class _RegisterFormState extends State<RegisterForm> {
                           firebaseServise.state.signInWithPhone(
                               phoneNumber: phoneController.text,
                               onComplete: () {
-                                navigateToHome(context);
+                                onComplete(context);
                               },
                               onError: (error) =>
                                   ErrorMessage.show(context, error: error),
@@ -138,7 +139,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                     backgroundColor: Colors.transparent,
                                     child: CodeInput(
                                       onComplete: () {
-                                        navigateToHome(context);
+                                        onComplete(context);
                                       },
                                       onError: (error) => ErrorMessage.show(
                                           context,
@@ -165,7 +166,8 @@ class _RegisterFormState extends State<RegisterForm> {
     ).listenTo(userService);
   }
 
-  Future<dynamic> navigateToHome(BuildContext context) {
+  Future<dynamic> onComplete(BuildContext context) {
+    appSettingsService.state.setLoggedIn();
     return Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const MenuScreen()));
   }
