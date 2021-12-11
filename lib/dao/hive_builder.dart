@@ -6,7 +6,6 @@ import 'package:horoscope_sirius_2021/models/horo.dart';
 class HiveBuilder {
   final Box<FullHoroHiveModel> box;
 
-
   HiveBuilder._(this.box);
 
   static Future<HiveBuilder> build() async {

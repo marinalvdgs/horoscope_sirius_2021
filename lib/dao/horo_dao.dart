@@ -11,4 +11,6 @@ abstract class HoroDao {
   Future<List<FullHoro>> getAll();
 
   Future<void> delete(FullHoro item);
+
+  Future<void> clearAll();
 }

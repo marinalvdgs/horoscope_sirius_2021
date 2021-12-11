@@ -8,20 +8,16 @@ import 'dart:convert';
 import 'package:jiffy/jiffy.dart';
 
 class HoroscopeApi {
-
   HoroDao dao;
   Dio dio;
-  
+
   HoroscopeApi({
     required this.dao,
     required this.dio,
   });
 
   Future<String?> _downloadData(String url) async {
-    Response response = await dio.request(
-      url,
-      options: Options(method:'GET')
-    );
+    Response response = await dio.request(url, options: Options(method: 'GET'));
     final transformer = Xml2Json();
     if (response.statusCode == 200) {
       transformer.parse(response.data);
@@ -53,11 +49,13 @@ class HoroscopeApi {
   }
 
   bool _needChange(DateTime dateTime) {
-      DateTime date = new DateTime(new DateTime.now().day);
-      return dateTime.add(Duration(days: 1)).millisecondsSinceEpoch > date.millisecondsSinceEpoch;
+    DateTime date = new DateTime(new DateTime.now().day);
+    return dateTime.add(Duration(days: 1)).millisecondsSinceEpoch >
+        date.millisecondsSinceEpoch;
   }
 
   Future<void> init() async {
+    await dao.clearAll();
     await _initHoro(dao);
   }
 
@@ -70,17 +68,21 @@ class HoroscopeApi {
   }
 
   Future<List<FullHoro>?> _getHoros() async {
-      var loveList = await _getHorosByUrl(horoApiMap['love']);
-      var bisinessList = await _getHorosByUrl(horoApiMap['bisiness']);
-      var commonList = await _getHorosByUrl(horoApiMap['common']);
-      if (loveList == null || bisinessList == null || commonList == null) {
-        return null;
-      }
-      List<FullHoro> result = List.empty(growable: true);
-      for (String sign in signs) {
-        result.add(FullHoro(sign: sign, love: loveList[sign]!, bisiness: bisinessList[sign]!, common: commonList[sign]!));
-      }
-      return result;
+    var loveList = await _getHorosByUrl(horoApiMap['love']);
+    var bisinessList = await _getHorosByUrl(horoApiMap['bisiness']);
+    var commonList = await _getHorosByUrl(horoApiMap['common']);
+    if (loveList == null || bisinessList == null || commonList == null) {
+      return null;
+    }
+    List<FullHoro> result = List.empty(growable: true);
+    for (String sign in signs) {
+      result.add(FullHoro(
+          sign: sign,
+          love: loveList[sign]!,
+          bisiness: bisinessList[sign]!,
+          common: commonList[sign]!));
+    }
+    return result;
   }
 
   Future<FullHoro?> getHoroBySign(String sign) async {
@@ -88,21 +90,19 @@ class HoroscopeApi {
     return dao.getItem(sign);
   }
 
-
   Future<bool> _initHoro(HoroDao dao) async {
-      List<FullHoro>? list = await _getHoros();
-      if (list != null) {
-        await dao.saveAll(list);
-        return true;
-      } else {
-        return false;
-      }
+    List<FullHoro>? list = await _getHoros();
+    if (list != null) {
+      await dao.saveAll(list);
+      return true;
+    } else {
+      return false;
+    }
   }
-
 }
 
 Map<String, String> horoApiMap = {
-  'love' : '/ero.xml',
-  'common' : '/com.xml',
-  'bisiness' : '/bus.xml'
+  'love': '/ero.xml',
+  'common': '/com.xml',
+  'bisiness': '/bus.xml'
 };
