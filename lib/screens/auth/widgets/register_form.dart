@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/error_message.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
+import 'package:horoscope_sirius_2021/common_widgets/magic_loader.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/code_input.dart';
 import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
 import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 import 'package:horoscope_sirius_2021/services/auth_service.dart';
+import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 

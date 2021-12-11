@@ -60,8 +60,8 @@ class HoroscopeApi {
   }
 
   // check just love
-  Future<void> _update(String sign) async {
-    var db = await dao.getItem(sign);
+  void _update(String sign) {
+    var db = dao.getItem(sign);
     if (db == null || _needChange(db.love.date)) {
       init();
     }
@@ -85,8 +85,8 @@ class HoroscopeApi {
     return result;
   }
 
-  Future<FullHoro?> getHoroBySign(String sign) async {
-    await _update('aries');
+  FullHoro? getHoroBySign(String sign) {
+    _update('aries');
     return dao.getItem(sign);
   }
 

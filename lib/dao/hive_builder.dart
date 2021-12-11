@@ -9,7 +9,6 @@ class HiveBuilder {
   HiveBuilder._(this.box);
 
   static Future<HiveBuilder> build() async {
-    await Hive.initFlutter();
     Hive.registerAdapter(HoroAdapter());
     Hive.registerAdapter(FullHoroHiveModelAdapter());
     return HiveBuilder._(

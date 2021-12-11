@@ -16,8 +16,7 @@ class UserService {
   void init() async {
     var directory = await getApplicationDocumentsDirectory();
     Hive
-      ..init(directory.path)
-      ..registerAdapter(UserInfoAdapter());
+       ..registerAdapter(UserInfoAdapter());
     userBox = await Hive.openBox('User');
     userService.notify();
   }

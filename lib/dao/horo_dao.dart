@@ -6,7 +6,7 @@ abstract class HoroDao {
 
   Future<void> saveAll(List<FullHoro> horos);
 
-  Future<FullHoro?> getItem(String sign);
+  FullHoro? getItem(String sign);
 
   Future<List<FullHoro>> getAll();
 

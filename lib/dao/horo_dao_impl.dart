@@ -24,7 +24,7 @@ class HoroDaoImpl extends HoroDao {
   Future<void> delete(FullHoro item) => _box.delete(item.sign);
 
   @override
-  Future<FullHoro?> getItem(String sign) async => _box.get(sign)?.toFullHoro();
+  FullHoro? getItem(String sign) => _box.get(sign)?.toFullHoro();
 
   @override
   Future<List<FullHoro>> getAll() async =>
