@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/option.dart';
 
 class CardInstance extends StatelessWidget {
   final CardOption option;
+  final Function()? onTap;
 
-  const CardInstance({Key? key, required this.option}) : super(key: key);
+  const CardInstance({
+    Key? key,
+    required this.option,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class CardInstance extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () => debugPrint("TODO: Tap on card:"),
+                onTap: onTap,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
