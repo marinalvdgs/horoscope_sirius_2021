@@ -15,7 +15,7 @@ class CardsContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.fromLTRB(15.0, 50.0, 10.0, 20.0),
             child: Text(
               appName,
               textAlign: TextAlign.left,

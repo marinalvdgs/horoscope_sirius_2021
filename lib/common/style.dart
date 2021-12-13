@@ -32,7 +32,7 @@ final buttonTextStyle = GoogleFonts.ubuntuMono(
 final headerMenuStyle = GoogleFonts.sairaCondensed(
   textStyle: const TextStyle(fontSize: 30),
   color: Colors.white,
-  fontSize: 40,
+  fontSize: 50,
 );
 
 const cardShadow = BoxShadow(
