@@ -8,17 +8,19 @@ import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final initService = appSettingsService.state.init();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: FutureBuilder(
-          future: appSettingsService.state.init(),
+          future: initService,
           builder: (context, value) {
             if (appSettingsService.state.settingsBox == null) {
               return const MagicLoader();
