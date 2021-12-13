@@ -1,1 +1,1 @@
-enum WheelDirection { left, right }
+enum WheelSide { left, right }
