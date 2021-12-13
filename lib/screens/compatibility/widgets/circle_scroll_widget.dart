@@ -17,15 +17,21 @@ class CircleScrollWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Transform(
-      alignment: Alignment.center,
-      transform: Matrix4.rotationY(direction == WheelDirection.right ? pi : 0),
-      child: CircleListScrollView.useDelegate(
-        radius: MediaQuery.of(context).size.height * 0.45,
-        itemExtent: 100,
-        physics: const CircleFixedExtentScrollPhysics(),
-        childDelegate:
-            CircleListWheelChildLoopingListDelegate(children: children),
+    return Transform.translate(
+      offset: Offset(direction == WheelDirection.right ? -40 : 0, 0),
+      child: Transform(
+        alignment: Alignment.center,
+        transform:
+            Matrix4.rotationY(direction == WheelDirection.right ? pi : 0),
+        child: CircleListScrollView.useDelegate(
+          radius: MediaQuery.of(context).size.height * 0.4,
+          itemExtent: 190,
+          clipToSize: false,
+          renderChildrenOutsideViewport: true,
+          physics: const CircleFixedExtentScrollPhysics(),
+          childDelegate:
+              CircleListWheelChildLoopingListDelegate(children: children),
+        ),
       ),
     );
   }
