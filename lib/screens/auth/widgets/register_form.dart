@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/error_message.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
-import 'package:horoscope_sirius_2021/common_widgets/magic_loader.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/code_input.dart';
 import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
 import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 import 'package:horoscope_sirius_2021/services/auth_service.dart';
-import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
+import 'package:horoscope_sirius_2021/utils/format_date_string.dart';
+import 'package:horoscope_sirius_2021/utils/get_zodiac_sign.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import 'input_text_field.dart';
@@ -32,17 +32,6 @@ class _RegisterFormState extends State<RegisterForm> {
     nameController.addListener(filledListener);
     birthController.addListener(filledListener);
     phoneController.addListener(filledListener);
-    //TODO: skip register form if User is logged in
-    userService.subscribeToRM((snap) {
-      if (snap != null) {
-        final user = snap.state.getUser();
-        if (user != null) {
-          nameController.text = user.name;
-          birthController.text = user.birth;
-          phoneController.text = user.phone;
-        }
-      }
-    });
     super.initState();
   }
 
@@ -117,11 +106,16 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: InkWell(
                   onTap: allFieldFilled && firebaseServise.state.auth != null
                       ? () {
+                          final date = formatDateString(birthController.text);
+                          final birthDate = DateTime.parse(date);
+                          final sign = getZodiacSign(birthDate);
                           userService.state.setUser(
                             UserInfo(
-                                name: nameController.text,
-                                birth: birthController.text,
-                                phone: phoneController.text),
+                              name: nameController.text,
+                              birth: birthController.text,
+                              phone: phoneController.text,
+                              sign: sign,
+                            ),
                           );
                           firebaseServise.state.signInWithPhone(
                               phoneNumber: phoneController.text,

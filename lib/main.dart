@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:horoscope_sirius_2021/common_widgets/magic_loader.dart';
 import 'package:horoscope_sirius_2021/screens/auth/auth_screen.dart';
 import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
+import 'package:horoscope_sirius_2021/services/user_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +15,14 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final initService = appSettingsService.state.init();
+  final initAppSettingsService = appSettingsService.state.init();
+  final initUserService = userService.state.init();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: FutureBuilder(
-          future: initService,
+          future: Future.wait([initAppSettingsService, initUserService]),
           builder: (context, value) {
             if (appSettingsService.state.settingsBox == null) {
               return const MagicLoader();

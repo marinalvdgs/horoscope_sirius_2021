@@ -3,20 +3,16 @@ import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-final userService = RM.inject<UserService>(
-  () => UserService(),
-  onInitialized: (s) {
-    s?.init();
-  },
-);
+final userService = RM.inject<UserService>(() => UserService());
 
 class UserService {
   late final Box<UserInfo> userBox;
 
-  void init() async {
+  Future<void> init() async {
     var directory = await getApplicationDocumentsDirectory();
     Hive
-       ..registerAdapter(UserInfoAdapter());
+      ..init(directory.path)
+      ..registerAdapter(UserInfoAdapter());
     userBox = await Hive.openBox('User');
     userService.notify();
   }
