@@ -90,10 +90,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Заполните все поля, чтобы войти',
-                    style: headerTextStyle.copyWith(
-                      fontSize: 20,
-                      color: subtitleColor,
-                    ),
+                    style: subtitleTextStyle,
                   ),
                 ),
                 InputTextField(
