@@ -3,6 +3,7 @@ import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/option.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/card.dart';
+import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 
 class CardsContainer extends StatelessWidget {
   const CardsContainer({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class CardsContainer extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return CardInstance(
                     option: options[index],
+                    nextScreen: namesMenuToScreen[options[index].title]!,
                   );
                 },
               ),
