@@ -7,6 +7,7 @@ import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
 import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 import 'package:horoscope_sirius_2021/services/auth_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
+import 'package:horoscope_sirius_2021/utils/date_formatter.dart';
 import 'package:horoscope_sirius_2021/utils/format_date_string.dart';
 import 'package:horoscope_sirius_2021/utils/get_zodiac_sign.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -92,6 +93,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   hintText: 'Дата рождения',
                   controller: birthController,
                   keyboardType: TextInputType.datetime,
+                  formatter: DateFormatter(),
                 ),
                 InputTextField(
                   icon: Icons.mobile_friendly,

@@ -58,6 +58,7 @@ class _CodeInputState extends State<CodeInput> {
                   code = value;
                 });
               },
+              textStyle: const TextStyle().copyWith(color: Colors.white),
               cursorColor: Colors.white,
               pinTheme: PinTheme(
                 activeColor: Colors.white,
