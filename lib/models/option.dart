@@ -24,8 +24,8 @@ Map<String, String> namesToUrl = {
 };
 
 Map<String, StatefulWidget> namesMenuToScreen = {
-  "Horoscope" : const HoroscopeScreen(),
-  "Compatibility" : const CompatibilityScreen(),
-  "Personal" : const HoroscopeScreen(),
-  "Profile" : const HoroscopeScreen(),
+  "Horoscope" : HoroscopeScreen(),
+  "Compatibility" : CompatibilityScreen(),
+  "Personal" : HoroscopeScreen(),
+  "Profile" : HoroscopeScreen(),
 };

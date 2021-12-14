@@ -10,10 +10,7 @@ class AppSettingsService {
   Box<AppSettings>? settingsBox;
 
   Future<void> init() async {
-    var directory = await getApplicationDocumentsDirectory();
-    Hive
-      ..init(directory.path)
-      ..registerAdapter(AppSettingsAdapter());
+    Hive.registerAdapter(AppSettingsAdapter());
     settingsBox = await Hive.openBox('Settings');
   }
 
