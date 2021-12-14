@@ -14,6 +14,11 @@ final headerTextStyle = GoogleFonts.philosopher(
   ),
 );
 
+final subtitleTextStyle = headerTextStyle.copyWith(
+  fontSize: 20,
+  color: subtitleColor,
+);
+
 final titleTextStyle = GoogleFonts.kosugiMaru(
   textStyle: const TextStyle(fontSize: 30),
 );

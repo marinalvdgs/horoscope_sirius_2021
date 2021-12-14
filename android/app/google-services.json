@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "98037737033-0ausohm0gu7it1epm1j3hbv77e5tllgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.horoscope_sirius_2021",
+            "certificate_hash": "2069c7de09561511ac6d692de8fdb5f7676b4442"
+          }
+        },
+        {
           "client_id": "98037737033-stut5k45mb4a1vuibtmma8of08j0acf7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

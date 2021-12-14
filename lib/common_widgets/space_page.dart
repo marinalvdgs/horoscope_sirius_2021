@@ -16,7 +16,7 @@ class SpacePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        padding: const EdgeInsets.only(top: 48),
+        padding: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [

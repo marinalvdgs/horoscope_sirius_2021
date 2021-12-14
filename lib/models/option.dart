@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horoscope_sirius_2021/screens/compatibility/compatibility_screen.dart';
 import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 
 class CardOption {
@@ -24,7 +25,7 @@ Map<String, String> namesToUrl = {
 
 Map<String, StatefulWidget> namesMenuToScreen = {
   "Horoscope" : const HoroscopeScreen(),
-  "Compatibility" : const HoroscopeScreen(),
+  "Compatibility" : const CompatibilityScreen(),
   "Personal" : const HoroscopeScreen(),
   "Profile" : const HoroscopeScreen(),
 };
