@@ -1,28 +1,24 @@
 import 'package:hive/hive.dart';
+import 'package:horoscope_sirius_2021/models/sign.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 final userService = RM.inject<UserService>(() => UserService());
 
 class UserService {
-  late final Box<UserInfo> userBox;
+  Box<UserInfo>? userBox;
 
   Future<void> init() async {
-    var directory = await getApplicationDocumentsDirectory();
-    Hive
-      ..init(directory.path)
-      ..registerAdapter(UserInfoAdapter());
+    Hive.registerAdapter(UserInfoAdapter());
+    Hive.registerAdapter(SignAdapter());
     userBox = await Hive.openBox('User');
-    userService.notify();
   }
 
   UserInfo? getUser() {
-    return userBox.get('currentUser');
+    return userBox!.get('currentUser');
   }
 
-  void setUser(UserInfo user) {
-    userBox.clear();
-    userBox.put('currentUser', user);
+  Future<void> setUser(UserInfo user) async {
+    await userBox!.put('currentUser', user);
   }
 }

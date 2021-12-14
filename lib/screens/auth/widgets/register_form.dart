@@ -107,18 +107,22 @@ class _RegisterFormState extends State<RegisterForm> {
           On<Widget>(() => Material(
                 child: InkWell(
                   onTap: allFieldFilled && firebaseServise.state.auth != null
-                      ? () {
+                      ? () async {
                           final date = formatDateString(birthController.text);
                           final birthDate = DateTime.parse(date);
                           final sign = getZodiacSign(birthDate);
-                          userService.state.setUser(
-                            UserInfo(
-                              name: nameController.text,
-                              birth: birthController.text,
-                              phone: phoneController.text,
-                              sign: sign,
-                            ),
-                          );
+                          try {
+                            await userService.state.setUser(
+                              UserInfo(
+                                name: nameController.text,
+                                birth: birthController.text,
+                                phone: phoneController.text,
+                                sign: sign,
+                              ),
+                            );
+                          } catch (e) {
+                            ErrorMessage.show(context, error: e.toString());
+                          }
                           firebaseServise.state.signInWithPhone(
                               phoneNumber: phoneController.text,
                               onComplete: () {
