@@ -36,14 +36,30 @@ class Horo extends HiveObject {
 
   Horo.fromJson(Map<String, dynamic> json)
       : 
-        sign = json['sign'],
-        today = json['today']["\$t"],
-        tomorrow = json['tomorrow']["\$t"],
-        yesterday = json['yesterday']["\$t"],
-        tomorrow02 = json['tomorrow02']["\$t"],
+        sign = _stripText(json['sign']),
+        today = _stripText(json['today']["\$t"]),
+        tomorrow = _stripText(json['tomorrow']["\$t"]),
+        yesterday = _stripText(json['yesterday']["\$t"]),
+        tomorrow02 = _stripText(json['tomorrow02']["\$t"]),
         date = json['date'];
-
   Horo toHoro() => Horo(sign : sign, yesterday : yesterday, today : today, tomorrow : tomorrow, tomorrow02 : tomorrow02, date : date);    
+
+  String getText(String date) {
+    if (date == "today") {
+      return today;
+    } else if (date == "yesterday") {
+      return yesterday;
+    } else if (date == "tomorrow") {
+      return tomorrow;
+    } else {
+      return "";
+    }
+  }
+}
+
+
+String _stripText(String text) {
+  return text.replaceAll("\\\\n", "");
 }
 
 final signs = [

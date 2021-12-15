@@ -8,6 +8,8 @@ import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'models/option.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var directory = await getApplicationDocumentsDirectory();
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
             }
             final isLoggedIn = appSettingsService.state.isUserLoggedIn();
             if (isLoggedIn) {
-              return const MenuScreen();
+              return MenuScreen(list: options,);
             }
             return const AuthScreen();
           }),

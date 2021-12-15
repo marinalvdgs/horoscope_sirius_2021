@@ -7,9 +7,15 @@ import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 
 class CardInstance extends StatelessWidget {
   final CardOption option;
-  final StatefulWidget nextScreen;
+  final Widget nextScreen;
+  final double height;
 
-  const CardInstance({Key? key, required this.option, required this.nextScreen}) : super(key: key);
+  const CardInstance(
+      {Key? key,
+      required this.option,
+      required this.nextScreen,
+      required this.height})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +54,11 @@ class CardInstance extends StatelessWidget {
                               child:
                                   Text(option.title, style: buttonTextStyle))),
                       FittedBox(
-                        fit: BoxFit.none,
-                        child: Padding(
+                          fit: BoxFit.none,
+                          child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                            child: option.image),
-                      )
+                            child: Image.asset(option.image, height: height),
+                          )),
                     ]),
               ),
             ),

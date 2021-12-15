@@ -1,16 +1,16 @@
-class ZodiacSign {
-  final String sign;
-  final String image;
-  final String title;
+import 'option.dart';
 
-  const ZodiacSign({
+class ZodiacSign extends CardOption {
+  final String sign;
+
+  ZodiacSign({
     required this.sign,
-    required this.image,
-    required this.title,
-  });
+    required image,
+    required title,
+  }) : super(image: image, title: title);
 }
 
-const allSigns = <ZodiacSign>[
+final allSigns = <ZodiacSign>[
   ZodiacSign(sign: 'aries', image: 'assets/signs/aries.png', title: 'Овен'),
   ZodiacSign(sign: 'taurus', image: 'assets/signs/taurus.png', title: 'Телец'),
   ZodiacSign(
