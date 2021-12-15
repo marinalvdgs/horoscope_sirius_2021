@@ -7,6 +7,7 @@ class InputTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final TextInputFormatter? formatter;
+  final bool enabled;
 
   const InputTextField({
     Key? key,
@@ -15,6 +16,7 @@ class InputTextField extends StatelessWidget {
     this.controller,
     this.keyboardType = TextInputType.text,
     this.formatter,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class InputTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
+        enabled: enabled,
         controller: controller,
         keyboardType: keyboardType,
         style: const TextStyle().copyWith(color: Colors.white, fontSize: 20),

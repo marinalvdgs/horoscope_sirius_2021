@@ -3,10 +3,13 @@ import 'package:horoscope_sirius_2021/models/sign.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-final userService = RM.inject<UserService>(() => UserService());
+final userService = RM.inject<UserService>(
+  () => UserService(),
+  autoDisposeWhenNotUsed: false,
+);
 
 class UserService {
-  Box<UserInfo>? userBox;
+  Box<UserInfo?>? userBox;
 
   Future<void> init() async {
     Hive.registerAdapter(UserInfoAdapter());
@@ -20,5 +23,6 @@ class UserService {
 
   Future<void> setUser(UserInfo user) async {
     await userBox!.put('currentUser', user);
+    userService.notify();
   }
 }
