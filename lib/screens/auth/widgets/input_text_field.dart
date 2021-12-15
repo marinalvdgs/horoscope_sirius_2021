@@ -5,16 +5,18 @@ class InputTextField extends StatelessWidget {
   final IconData icon;
   final String hintText;
   final TextEditingController? controller;
-  final Function(String?)? validator;
   final TextInputType keyboardType;
+  final TextInputFormatter? formatter;
+  final bool enabled;
 
   const InputTextField({
     Key? key,
     required this.icon,
     required this.hintText,
     this.controller,
-    this.validator,
     this.keyboardType = TextInputType.text,
+    this.formatter,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -22,17 +24,13 @@ class InputTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
+        enabled: enabled,
         controller: controller,
         keyboardType: keyboardType,
         style: const TextStyle().copyWith(color: Colors.white, fontSize: 20),
         cursorColor: Colors.white,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (value) {
-          if (validator != null) {
-            return validator!(value) as String?;
-          }
-          return null;
-        },
+        inputFormatters: formatter != null ? [formatter!] : [],
         decoration: InputDecoration(
           border: const OutlineInputBorder(
             borderSide: BorderSide.none,

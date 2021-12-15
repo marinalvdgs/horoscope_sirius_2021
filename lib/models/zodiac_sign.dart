@@ -1,33 +1,49 @@
+import 'package:horoscope_sirius_2021/models/sign.dart';
+
 class ZodiacSign {
-  final String sign;
+  final Sign sign;
   final String image;
-  final String title;
 
   const ZodiacSign({
     required this.sign,
     required this.image,
-    required this.title,
   });
 }
 
-const allSigns = <ZodiacSign>[
-  ZodiacSign(sign: 'aries', image: 'assets/signs/aries.png', title: 'Овен'),
-  ZodiacSign(sign: 'taurus', image: 'assets/signs/taurus.png', title: 'Телец'),
+final allSigns = <ZodiacSign>[
   ZodiacSign(
-      sign: 'gemini', image: 'assets/signs/gemini.png', title: 'Близнецы'),
-  ZodiacSign(sign: 'cancer', image: 'assets/signs/cancer.png', title: 'Рак'),
-  ZodiacSign(sign: 'leo', image: 'assets/signs/leo.png', title: 'Лев'),
-  ZodiacSign(sign: 'virgo', image: 'assets/signs/virgo.png', title: 'Дева'),
-  ZodiacSign(sign: 'libra', image: 'assets/signs/libra.png', title: 'Весы'),
+      sign: Sign(name: 'aries', title: 'Овен'),
+      image: 'assets/signs/aries.png'),
   ZodiacSign(
-      sign: 'scorpio', image: 'assets/signs/scorpio.png', title: 'Скорпион'),
+      sign: Sign(name: 'taurus', title: 'Телец'),
+      image: 'assets/signs/taurus.png'),
   ZodiacSign(
-      sign: 'sagittarius',
-      image: 'assets/signs/sagittarius.png',
-      title: 'Стрелец'),
+      sign: Sign(name: 'gemini', title: 'Близнецы'),
+      image: 'assets/signs/gemini.png'),
   ZodiacSign(
-      sign: 'capricorn', image: 'assets/signs/capricorn.png', title: 'Козерог'),
+      sign: Sign(name: 'cancer', title: 'Рак'),
+      image: 'assets/signs/cancer.png'),
   ZodiacSign(
-      sign: 'aquarius', image: 'assets/signs/aquarius.png', title: 'Водолей'),
-  ZodiacSign(sign: 'pisces', image: 'assets/signs/pisces.png', title: 'Рыбы'),
+      sign: Sign(name: 'leo', title: 'Лев'), image: 'assets/signs/leo.png'),
+  ZodiacSign(
+      sign: Sign(name: 'virgo', title: 'Дева'),
+      image: 'assets/signs/virgo.png'),
+  ZodiacSign(
+      sign: Sign(name: 'libra', title: 'Весы'),
+      image: 'assets/signs/libra.png'),
+  ZodiacSign(
+      sign: Sign(name: 'scorpio', title: 'Скорпион'),
+      image: 'assets/signs/scorpio.png'),
+  ZodiacSign(
+      sign: Sign(name: 'sagittarius', title: 'Стрелец'),
+      image: 'assets/signs/sagittarius.png'),
+  ZodiacSign(
+      sign: Sign(name: 'capricorn', title: 'Козерог'),
+      image: 'assets/signs/capricorn.png'),
+  ZodiacSign(
+      sign: Sign(name: 'aquarius', title: 'Водолей'),
+      image: 'assets/signs/aquarius.png'),
+  ZodiacSign(
+      sign: Sign(name: 'pisces', title: 'Рыбы'),
+      image: 'assets/signs/pisces.png'),
 ];

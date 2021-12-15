@@ -63,7 +63,7 @@ class _SignCardState extends State<SignCard> {
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: GlowText(
-                text: widget.sign.title,
+                text: widget.sign.sign.title,
                 textStyle:
                     headerTextStyle.copyWith(fontSize: 24, color: Colors.white),
               ),

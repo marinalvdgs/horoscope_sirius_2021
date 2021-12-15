@@ -4,6 +4,7 @@ import 'package:horoscope_sirius_2021/models/option.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/card.dart';
 import 'package:horoscope_sirius_2021/screens/compatibility/compatibility_screen.dart';
+import 'package:horoscope_sirius_2021/screens/profile/profile_screen.dart';
 
 class CardsContainer extends StatelessWidget {
   const CardsContainer({Key? key}) : super(key: key);
@@ -37,7 +38,13 @@ class CardsContainer extends StatelessWidget {
                     },
                   ),
                   CardInstance(option: options[2]),
-                  CardInstance(option: options[3])
+                  CardInstance(
+                    option: options[3],
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ProfileScreen()));
+                    },
+                  )
                 ],
               ),
             ),
