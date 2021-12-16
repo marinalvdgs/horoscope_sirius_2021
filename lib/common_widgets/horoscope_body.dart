@@ -4,7 +4,7 @@ import 'package:horoscope_sirius_2021/common_widgets/bottom_container.dart';
 
 class HoroscopeBody extends StatelessWidget {
   final Widget picture;
-  final List<Widget> circles;
+  final List<Widget>? circles;
   final List<Widget> content;
 
   const HoroscopeBody({
@@ -26,10 +26,10 @@ class HoroscopeBody extends StatelessWidget {
           child: BottomContainer(
             child: Column(
               children: [
-                Padding(
+                if (circles != null) Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    children: circles,
+                    children: circles!,
                   ),
                 ),
                 Expanded(

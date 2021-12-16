@@ -9,9 +9,10 @@ class SignsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpacePage(
-        body: CardsContainer(
-      list: allSigns,
-      physics: const BouncingScrollPhysics(),
-    ));
+      body: CardsContainer(
+        list: allSigns,
+        physics: const BouncingScrollPhysics(),
+      ),
+    );
   }
 }

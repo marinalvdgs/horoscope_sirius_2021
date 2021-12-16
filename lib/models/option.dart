@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/screens/compatibility/compatibility_screen.dart';
 import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
+import 'package:horoscope_sirius_2021/screens/personal/personal_screen.dart';
 import 'package:horoscope_sirius_2021/screens/profile/profile_screen.dart';
 import 'package:horoscope_sirius_2021/screens/signs/signs.dart';
 
@@ -29,6 +30,6 @@ Map<String, String> namesToUrl = {
 Map<String, Widget> namesMenuToScreen = {
   "Horoscope": const SignsScreen(),
   "Compatibility": const CompatibilityScreen(),
-  "Personal": HoroscopeScreen(sign: allSigns[0]),
+  "Personal": PersonalScreen(),
   "Profile": const ProfileScreen(),
 };

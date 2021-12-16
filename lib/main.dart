@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:horoscope_sirius_2021/common_widgets/magic_loader.dart';
 import 'package:horoscope_sirius_2021/screens/auth/auth_screen.dart';
 import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
+import 'package:horoscope_sirius_2021/services/balaboba_service.dart';
 import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
 
@@ -25,15 +26,16 @@ class MyApp extends StatelessWidget {
   final initHoroService = horoService.state.init();
   final initAppSettingsService = appSettingsService.state.init();
   final initUserService = userService.state.init();
+  final initBalabobaService = balabobaService.state.init();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: FutureBuilder(
-          future: Future.wait([initHoroService, initAppSettingsService]),
+          future: Future.wait([initHoroService, initAppSettingsService, initBalabobaService]),
           builder: (context, value) {
             if (appSettingsService.state.settingsBox == null) {
-              return const MagicLoader();
+              return MagicLoader();
             }
             final isLoggedIn = appSettingsService.state.isUserLoggedIn();
             return FutureBuilder(

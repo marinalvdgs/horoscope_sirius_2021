@@ -41,7 +41,7 @@ class _SignsCompatibilityScreenState extends State<SignsCompatibilityScreen> {
         future: loadData,
         builder: (context, data) {
           if (!data.hasData) {
-            return const MagicLoader();
+            return MagicLoader();
           }
           final result = data.data!;
           return Padding(
