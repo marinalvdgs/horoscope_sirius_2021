@@ -2,17 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/common_widgets/glow_text.dart';
 
-class AstrologyLogo extends StatefulWidget {
-  const AstrologyLogo({Key? key}) : super(key: key);
+class ResizingLogo extends StatefulWidget {
+  final String image;
+  final String title;
+  const ResizingLogo({
+    Key? key,
+    required this.image,
+    required this.title,
+  }) : super(key: key);
 
   @override
-  _AstrologyLogoState createState() => _AstrologyLogoState();
+  _ResizingLogoState createState() => _ResizingLogoState();
 }
 
-class _AstrologyLogoState extends State<AstrologyLogo>
+class _ResizingLogoState extends State<ResizingLogo>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 300),
@@ -57,7 +64,7 @@ class _AstrologyLogoState extends State<AstrologyLogo>
               child: SizedBox(
                 height: 150,
                 width: 150,
-                child: Image.asset('assets/logo.png'),
+                child: Image.asset(widget.image),
               ),
             ),
           ),
@@ -65,7 +72,7 @@ class _AstrologyLogoState extends State<AstrologyLogo>
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: GlowText(
-            text: 'Astrology magic',
+            text: widget.title,
             textStyle: titleTextStyle,
           ),
         ),

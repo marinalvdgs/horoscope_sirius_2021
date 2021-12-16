@@ -69,15 +69,15 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
   @override
   void initState() {
     textLove = horoService.state
-        .getHoroBySign(widget.sign.sign)
+        .getHoroBySign(widget.sign.sign.name)
         ?.love
         .getText(widget.day);
     textCommon = horoService.state
-        .getHoroBySign(widget.sign.sign)
+        .getHoroBySign(widget.sign.sign.name)
         ?.common
         .getText(widget.day);
     textBusiness = horoService.state
-        .getHoroBySign(widget.sign.sign)
+        .getHoroBySign(widget.sign.sign.name)
         ?.bisiness
         .getText(widget.day);
   }
@@ -103,16 +103,16 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
                           children: [
                             CircleText(
                               title: "Love",
-                              angle: getAngle(widget.sign.sign, 0, widget.day),
+                              angle: getAngle(widget.sign.sign.name, 0, widget.day),
                               color: Colors.red,
                             ),
                             CircleText(
                                 title: "Health",
-                                angle: getAngle(widget.sign.sign, 1, widget.day),
+                                angle: getAngle(widget.sign.sign.name, 1, widget.day),
                                 color: Colors.green),
                             CircleText(
                               title: "Business",
-                              angle: getAngle(widget.sign.sign, 2, widget.day),
+                              angle: getAngle(widget.sign.sign.name, 2, widget.day),
                               color: Colors.cyan,
                             ),
                           ],

@@ -8,8 +8,10 @@ import 'package:horoscope_sirius_2021/screens/auth/widgets/code_input.dart';
 import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
 import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 import 'package:horoscope_sirius_2021/services/auth_service.dart';
-import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
+import 'package:horoscope_sirius_2021/utils/date_formatter.dart';
+import 'package:horoscope_sirius_2021/utils/format_date_string.dart';
+import 'package:horoscope_sirius_2021/utils/get_zodiac_sign.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import 'input_text_field.dart';
@@ -33,17 +35,6 @@ class _RegisterFormState extends State<RegisterForm> {
     nameController.addListener(filledListener);
     birthController.addListener(filledListener);
     phoneController.addListener(filledListener);
-    //TODO: skip register form if User is logged in
-    userService.subscribeToRM((snap) {
-      if (snap != null) {
-        final user = snap.state.getUser();
-        if (user != null) {
-          nameController.text = user.name;
-          birthController.text = user.birth;
-          phoneController.text = user.phone;
-        }
-      }
-    });
     super.initState();
   }
 
@@ -74,96 +65,104 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return On<Widget>(
-      () => Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Регистрация', style: headerTextStyle),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Регистрация', style: headerTextStyle),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Заполните все поля, чтобы войти',
+                  style: subtitleTextStyle,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Заполните все поля, чтобы войти',
-                    style: subtitleTextStyle,
-                  ),
-                ),
-                InputTextField(
-                  icon: Icons.person,
-                  hintText: 'Имя',
-                  controller: nameController,
-                ),
-                InputTextField(
-                  icon: Icons.calendar_today,
-                  hintText: 'Дата рождения',
-                  controller: birthController,
-                  keyboardType: TextInputType.datetime,
-                ),
-                InputTextField(
-                  icon: Icons.mobile_friendly,
-                  hintText: 'Номер телефона',
-                  controller: phoneController,
-                  keyboardType: TextInputType.phone,
-                )
-              ],
-            ),
+              ),
+              InputTextField(
+                icon: Icons.person,
+                hintText: 'Имя',
+                controller: nameController,
+              ),
+              InputTextField(
+                icon: Icons.calendar_today,
+                hintText: 'Дата рождения',
+                controller: birthController,
+                keyboardType: TextInputType.datetime,
+                formatter: DateFormatter(),
+              ),
+              InputTextField(
+                icon: Icons.mobile_friendly,
+                hintText: 'Номер телефона',
+                controller: phoneController,
+                keyboardType: TextInputType.phone,
+              )
+            ],
           ),
-          On<Widget>(() => Material(
-                child: InkWell(
-                  onTap: allFieldFilled && firebaseServise.state.auth != null
-                      ? () {
-                          userService.state.setUser(
+        ),
+        On<Widget>(() => Material(
+              child: InkWell(
+                onTap: allFieldFilled && firebaseServise.state.auth != null
+                    ? () async {
+                        final date = formatDateString(birthController.text);
+                        final birthDate = DateTime.parse(date);
+                        final sign = getZodiacSign(birthDate);
+                        try {
+                          await userService.state.setUser(
                             UserInfo(
-                                name: nameController.text,
-                                birth: birthController.text,
-                                phone: phoneController.text),
+                              name: nameController.text,
+                              birth: birthController.text,
+                              phone: phoneController.text,
+                              sign: sign,
+                            ),
                           );
-                          firebaseServise.state.signInWithPhone(
-                              phoneNumber: phoneController.text,
-                              onComplete: () {
-                                onComplete(context);
-                              },
-                              onError: (error) =>
-                                  ErrorMessage.show(context, error: error),
-                              onCodeSent: (_) {
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) => Dialog(
-                                    backgroundColor: Colors.transparent,
-                                    child: CodeInput(
-                                      onComplete: () {
-                                        onComplete(context);
-                                      },
-                                      onError: (error) => ErrorMessage.show(
-                                          context,
-                                          error: error),
-                                    ),
-                                  ),
-                                );
-                              });
+                        } catch (e) {
+                          ErrorMessage.show(context, error: e.toString());
                         }
-                      : null,
-                  child: Ink(
-                    color: allFieldFilled
-                        ? buttonColor
-                        : buttonColor.withOpacity(0.8),
-                    height: kBottomNavigationBarHeight,
-                    child: Center(
-                      child: Text('ПРОДОЛЖИТЬ', style: buttonTextStyle),
-                    ),
+                        firebaseServise.state.signInWithPhone(
+                            phoneNumber: phoneController.text,
+                            onComplete: () {
+                              onComplete(context);
+                            },
+                            onError: (error) =>
+                                ErrorMessage.show(context, error: error),
+                            onCodeSent: (_) {
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) => Dialog(
+                                  backgroundColor: Colors.transparent,
+                                  child: CodeInput(
+                                    onComplete: () {
+                                      onComplete(context);
+                                    },
+                                    onError: (error) => ErrorMessage.show(
+                                        context,
+                                        error: error),
+                                  ),
+                                ),
+                              );
+                            });
+                      }
+                    : null,
+                child: Ink(
+                  color: allFieldFilled
+                      ? buttonColor
+                      : buttonColor.withOpacity(0.8),
+                  height: kBottomNavigationBarHeight,
+                  child: Center(
+                    child: Text('ПРОДОЛЖИТЬ', style: buttonTextStyle),
                   ),
                 ),
-              )).listenTo(firebaseServise)
-        ],
-      ),
-    ).listenTo(userService);
+              ),
+            )).listenTo(firebaseServise)
+      ],
+    );
   }
 
   Future<dynamic> onComplete(BuildContext context) {
