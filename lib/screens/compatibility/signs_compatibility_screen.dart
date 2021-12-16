@@ -47,6 +47,7 @@ class _SignsCompatibilityScreenState extends State<SignsCompatibilityScreen> {
           return Padding(
             padding: const EdgeInsets.only(top: 48),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   children: [

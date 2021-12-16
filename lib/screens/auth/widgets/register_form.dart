@@ -164,11 +164,13 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
-  Future<dynamic> onComplete(BuildContext context) {
+  void onComplete(BuildContext context) {
     appSettingsService.state.setLoggedIn();
-    return Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => MenuScreen(
-              list: options,
-            )));
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => MenuScreen(
+                  list: options,
+                )),
+        (route) => false);
   }
 }

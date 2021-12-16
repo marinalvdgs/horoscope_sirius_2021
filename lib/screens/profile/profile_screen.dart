@@ -3,6 +3,7 @@ import 'package:horoscope_sirius_2021/common_widgets/page_with_resizing_image.da
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/screens/auth/auth_screen.dart';
 import 'package:horoscope_sirius_2021/screens/profile/widgets/profile_info.dart';
+import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -32,8 +33,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const AuthScreen()));
+              appSettingsService.state.onLogOut();
+              userService.state.deleteUser();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const AuthScreen()),
+                  (route) => false);
             },
             icon: const Icon(Icons.exit_to_app, color: Colors.white),
           )

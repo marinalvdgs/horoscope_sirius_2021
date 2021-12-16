@@ -33,9 +33,18 @@ class _CompatibilityImageState extends State<CompatibilityImage> {
       height: 200,
       width: double.infinity,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(image: leftImage, height: 150),
-          Image(image: rightImage, height: 150),
+          Expanded(child: Image(image: leftImage)),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Transform(
+              transform:
+                  Matrix4.rotationY(widget.left == widget.right ? pi : 0),
+              alignment: Alignment.center,
+              child: Image(image: rightImage),
+            ),
+          ),
         ],
       ),
     );
