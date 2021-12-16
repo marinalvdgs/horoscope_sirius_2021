@@ -22,7 +22,6 @@ class ArcPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Rect rect = Rect.fromLTWH(0.0, 0.0, size.width, size.height);
-
     canvas.drawArc(
         rect,
         -pi / 2,
@@ -32,6 +31,18 @@ class ArcPainter extends CustomPainter {
           ..color = color
           ..strokeWidth = 5.0
           ..style = PaintingStyle.stroke
+    );
+    canvas.drawPath(
+      Path()
+        ..addArc(
+        rect,
+        -pi / 2,
+        doubleToAngle(angle)),
+        Paint()
+          ..color = color
+          ..strokeWidth = 5.0
+          ..style = PaintingStyle.stroke
+          ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 5.5)
     );
   }
 }

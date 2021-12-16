@@ -113,7 +113,7 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
                             CircleText(
                               title: "Business",
                               angle: getAngle(widget.sign.sign.name, 2, widget.day),
-                              color: Colors.cyan,
+                              color: Colors.lightBlue,
                             ),
                           ],
                         ),
