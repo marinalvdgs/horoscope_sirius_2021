@@ -5,7 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:horoscope_sirius_2021/common_widgets/magic_loader.dart';
 import 'package:horoscope_sirius_2021/screens/auth/auth_screen.dart';
 import 'package:horoscope_sirius_2021/services/app_settings_service.dart';
+import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
+
+import 'models/option.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +20,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
+  final initHoroService = horoService.state.init();
   final initAppSettingsService = appSettingsService.state.init();
   final initUserService = userService.state.init();
 
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: FutureBuilder(
-          future: initAppSettingsService,
+          future: Future.wait([initHoroService, initAppSettingsService]),
           builder: (context, value) {
             if (appSettingsService.state.settingsBox == null) {
               return const MagicLoader();
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
                 future: initUserService,
                 builder: (context, val) {
                   if (isLoggedIn) {
-                    return const MenuScreen();
+                    return MenuScreen(list : options,);
                   }
                   return const AuthScreen();
                 });

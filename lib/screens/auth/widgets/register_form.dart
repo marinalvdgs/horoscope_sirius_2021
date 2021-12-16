@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/error_message.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
+import 'package:horoscope_sirius_2021/common_widgets/magic_loader.dart';
+import 'package:horoscope_sirius_2021/models/option.dart';
 import 'package:horoscope_sirius_2021/models/user.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/code_input.dart';
 import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
@@ -166,6 +168,6 @@ class _RegisterFormState extends State<RegisterForm> {
   Future<dynamic> onComplete(BuildContext context) {
     appSettingsService.state.setLoggedIn();
     return Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MenuScreen()));
+        MaterialPageRoute(builder: (context) => MenuScreen(list: options,)));
   }
 }

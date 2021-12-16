@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/option.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
+import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/screens/auth/widgets/card.dart';
-import 'package:horoscope_sirius_2021/screens/compatibility/compatibility_screen.dart';
-import 'package:horoscope_sirius_2021/screens/profile/profile_screen.dart';
+import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 
 class CardsContainer extends StatelessWidget {
-  const CardsContainer({Key? key}) : super(key: key);
+
+  final List<CardOption> list;
+  final ScrollPhysics physics;
+
+  const CardsContainer({Key? key, required this.list, required this.physics}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,27 +29,17 @@ class CardsContainer extends StatelessWidget {
           ),
           Expanded(
             child: Center(
-              child: ListView(
+              child: ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  CardInstance(option: options[0]),
-                  CardInstance(
-                    option: options[1],
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CompatibilityScreen()));
-                    },
-                  ),
-                  CardInstance(option: options[2]),
-                  CardInstance(
-                    option: options[3],
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ProfileScreen()));
-                    },
-                  )
-                ],
+                physics: physics,
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return CardInstance(
+                    option: list[index],
+                    nextScreen: namesMenuToScreen[list[index].title] ?? HoroscopeScreen(sign: allSigns[index]),
+                    height: 150,
+                  );
+                },
               ),
             ),
           ),
@@ -54,10 +48,13 @@ class CardsContainer extends StatelessWidget {
 }
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen({Key? key}) : super(key: key);
+
+  final List<CardOption> list;
+
+  const MenuScreen({Key? key, required this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const SpacePage(body: CardsContainer());
+    return SpacePage(body: CardsContainer(list: list, physics: NeverScrollableScrollPhysics(),));
   }
 }

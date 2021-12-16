@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
+import 'package:horoscope_sirius_2021/screens/compatibility/compatibility_screen.dart';
+import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
+import 'package:horoscope_sirius_2021/screens/signs/signs.dart';
 
 class CardOption {
-  Image image;
+  String image;
   String title;
 
   CardOption({required this.image, required this.title});
 }
 
 final options = [
-  CardOption(image: Image.asset(namesToUrl["Horoscope"]!, height: 200), title: "Horoscope"),
-  CardOption(image: Image.asset(namesToUrl["Compatibility"]!, height: 200), title: "Compatibility"),
-  CardOption(image: Image.asset(namesToUrl["Personal"]!, height: 200), title: "Personal"),
-  CardOption(image: Image.asset(namesToUrl["Profile"]!, height: 200), title: "Profile"),
+  CardOption(image: namesToUrl["Horoscope"]!, title: "Horoscope"),
+  CardOption(image: namesToUrl["Compatibility"]!, title: "Compatibility"),
+  CardOption(image: namesToUrl["Personal"]!, title: "Personal"),
+  CardOption(image: namesToUrl["Profile"]!, title: "Profile"),
 ];
 
 Map<String, String> namesToUrl = {
@@ -19,4 +23,11 @@ Map<String, String> namesToUrl = {
   "Compatibility" : "assets/compatibility.png",
   "Personal" : "assets/personal.png",
   "Profile" : "assets/profile.png",
+};
+
+Map<String, Widget> namesMenuToScreen = {
+  "Horoscope" : SignsScreen(),
+  "Compatibility" : CompatibilityScreen(),
+  "Personal" : HoroscopeScreen(sign: allSigns[0]),
+  "Profile" : CompatibilityScreen(),
 };

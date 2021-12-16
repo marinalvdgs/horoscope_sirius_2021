@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 
-/// Placeholder for loader
+/// Placeholder for loader.dart
 class MagicLoader extends StatelessWidget {
   const MagicLoader({Key? key}) : super(key: key);
 

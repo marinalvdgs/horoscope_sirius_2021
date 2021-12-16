@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/option.dart';
+import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 
 class CardInstance extends StatelessWidget {
   final CardOption option;
-  final Function()? onTap;
+  final Widget nextScreen;
+  final double height;
 
-  const CardInstance({
-    Key? key,
-    required this.option,
-    this.onTap,
-  }) : super(key: key);
+  const CardInstance(
+      {Key? key,
+      required this.option,
+      required this.nextScreen,
+      required this.height})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,13 @@ class CardInstance extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: onTap,
+                onTap: () => {
+                  debugPrint("TODO: Tap on card:"),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => nextScreen),
+                  )
+                },
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,11 +54,11 @@ class CardInstance extends StatelessWidget {
                               child:
                                   Text(option.title, style: buttonTextStyle))),
                       FittedBox(
-                        fit: BoxFit.none,
-                        child: Padding(
+                          fit: BoxFit.none,
+                          child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                            child: option.image),
-                      )
+                            child: Image.asset(option.image, height: height),
+                          )),
                     ]),
               ),
             ),

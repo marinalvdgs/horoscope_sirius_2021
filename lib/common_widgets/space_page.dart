@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:horoscope_sirius_2021/common/style.dart';
 
 /// Use this widget to wrap every page in app to make space background
 class SpacePage extends StatelessWidget {
@@ -15,7 +16,7 @@ class SpacePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        padding: const EdgeInsets.only(top: 48),
+        padding: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [
