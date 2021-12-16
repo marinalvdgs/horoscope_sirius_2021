@@ -33,7 +33,7 @@ class Horoscopecontent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
       child: Text(text ?? "", style: headerMenuStyle.copyWith(fontSize: 14)),
     );
   }

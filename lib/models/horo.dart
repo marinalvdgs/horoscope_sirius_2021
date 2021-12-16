@@ -76,3 +76,4 @@ final signs = [
   'aquarius',
   'pisces'
 ];
+

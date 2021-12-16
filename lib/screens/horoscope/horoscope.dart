@@ -81,7 +81,7 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
         ?.bisiness
         .getText(widget.day);
   }
-
+  // TODO: get api for angles!
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -103,16 +103,16 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
                           children: [
                             CircleText(
                               title: "Love",
-                              angle: 210,
+                              angle: getAngle(widget.sign.sign, 0, widget.day),
                               color: Colors.red,
                             ),
                             CircleText(
                                 title: "Health",
-                                angle: 185,
+                                angle: getAngle(widget.sign.sign, 1, widget.day),
                                 color: Colors.green),
                             CircleText(
                               title: "Business",
-                              angle: 360,
+                              angle: getAngle(widget.sign.sign, 2, widget.day),
                               color: Colors.cyan,
                             ),
                           ],
@@ -122,6 +122,7 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
                         child: Padding(
                           padding: EdgeInsets.all(10),
                           child: SingleChildScrollView(
+                            physics: BouncingScrollPhysics(),
                             child: Column(
                               children: [
                                 const IconTitle(
@@ -151,6 +152,16 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
           );
         });
   }
+}
+
+double getAngle(String sign, int index, String day) {
+  int shift = 0;
+  if (day == "yesterday") {
+    shift = -1;
+  } else if (day == "tomorrow") {
+    shift = 1;
+  }
+  return 144 + (360.0 * signsProbability[sign]![index] * (DateTime.now().day + shift) + DateTime.now().month * 337) % 216.0;
 }
 
 class HoroscopeMainPicture extends StatefulWidget {
