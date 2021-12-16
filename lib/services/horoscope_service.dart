@@ -14,9 +14,7 @@ class HoroService {
   Future<void> init() async {
     var hive = await HiveBuilder.build();
     var options = BaseOptions(
-      baseUrl: 'https://ignio.com/r/export/utf/xml/daily',
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
+      baseUrl: 'https://ignio.com/r/export/utf/xml/daily'
     );
     api = HoroscopeApi(dao: HoroDaoImpl(hive.box), dio: Dio(options));
     await api!.init();
