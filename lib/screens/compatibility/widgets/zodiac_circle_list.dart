@@ -10,10 +10,13 @@ import 'circle_scroll_widget.dart';
 class ZodiacCircleList extends StatelessWidget {
   final WheelSide side;
   final String title;
+  final Function(int) onSignChange;
+
   const ZodiacCircleList({
     Key? key,
     required this.side,
     required this.title,
+    required this.onSignChange,
   }) : super(key: key);
 
   @override
@@ -38,6 +41,7 @@ class ZodiacCircleList extends StatelessWidget {
                       ))
                   .toList(),
               side: side,
+              onItemChanged: onSignChange,
             ),
           ),
         ),
