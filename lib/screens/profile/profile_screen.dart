@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common_widgets/page_with_resizing_image.dart';
-import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/screens/auth/auth_screen.dart';
-import 'package:horoscope_sirius_2021/screens/auth/widgets/register_form.dart';
 import 'package:horoscope_sirius_2021/screens/profile/widgets/profile_info.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
 

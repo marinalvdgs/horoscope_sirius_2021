@@ -7,11 +7,11 @@ import 'package:horoscope_sirius_2021/screens/auth/widgets/card.dart';
 import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 
 class CardsContainer extends StatelessWidget {
-
   final List<CardOption> list;
   final ScrollPhysics physics;
 
-  const CardsContainer({Key? key, required this.list, required this.physics}) : super(key: key);
+  const CardsContainer({Key? key, required this.list, required this.physics})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,8 @@ class CardsContainer extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return CardInstance(
                     option: list[index],
-                    nextScreen: namesMenuToScreen[list[index].title] ?? HoroscopeScreen(sign: allSigns[index]),
+                    nextScreen: namesMenuToScreen[list[index].title] ??
+                        HoroscopeScreen(sign: allSigns[index]),
                     height: 150,
                   );
                 },
@@ -48,13 +49,16 @@ class CardsContainer extends StatelessWidget {
 }
 
 class MenuScreen extends StatelessWidget {
-
   final List<CardOption> list;
 
   const MenuScreen({Key? key, required this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SpacePage(body: CardsContainer(list: list, physics: NeverScrollableScrollPhysics(),));
+    return SpacePage(
+        body: CardsContainer(
+      list: list,
+      physics: const NeverScrollableScrollPhysics(),
+    ));
   }
 }

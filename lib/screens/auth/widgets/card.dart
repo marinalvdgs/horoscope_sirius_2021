@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/models/option.dart';
-import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 
 class CardInstance extends StatelessWidget {
   final CardOption option;

@@ -49,8 +49,8 @@ class HoroscopeApi {
   }
 
   bool _needChange(DateTime dateTime) {
-    DateTime date = new DateTime(new DateTime.now().day);
-    return dateTime.add(Duration(days: 1)).millisecondsSinceEpoch >
+    DateTime date = DateTime(DateTime.now().day);
+    return dateTime.add(const Duration(days: 1)).millisecondsSinceEpoch >
         date.millisecondsSinceEpoch;
   }
 

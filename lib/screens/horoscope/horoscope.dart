@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:horoscope_sirius_2021/common/style.dart';
-import 'package:horoscope_sirius_2021/common_widgets/bottom_container.dart';
 import 'package:horoscope_sirius_2021/common_widgets/circle_text.dart';
+import 'package:horoscope_sirius_2021/common_widgets/horoscope_body.dart';
 import 'package:horoscope_sirius_2021/common_widgets/icon_title.dart';
-import 'package:horoscope_sirius_2021/common_widgets/loader_horo.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
-import 'package:horoscope_sirius_2021/models/horo.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 
@@ -39,9 +36,9 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
           ),
           body: TabBarView(
             children: [
-              HoroscopeBody(sign: widget.sign, day: "today"),
-              HoroscopeBody(sign: widget.sign, day: "yesterday"),
-              HoroscopeBody(sign: widget.sign, day: "tomorrow"),
+              HoroscopePage(sign: widget.sign, day: "today"),
+              HoroscopePage(sign: widget.sign, day: "yesterday"),
+              HoroscopePage(sign: widget.sign, day: "tomorrow"),
             ],
           ),
         ),
@@ -50,18 +47,18 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
   }
 }
 
-class HoroscopeBody extends StatefulWidget {
+class HoroscopePage extends StatefulWidget {
   final ZodiacSign sign;
   final String day;
 
-  const HoroscopeBody({Key? key, required this.sign, required this.day})
+  const HoroscopePage({Key? key, required this.sign, required this.day})
       : super(key: key);
 
   @override
   _HoroscopeBodyScreenState createState() => _HoroscopeBodyScreenState();
 }
 
-class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
+class _HoroscopeBodyScreenState extends State<HoroscopePage> {
   String? textLove;
   String? textCommon;
   String? textBusiness;
@@ -80,77 +77,43 @@ class _HoroscopeBodyScreenState extends State<HoroscopeBody> {
         .getHoroBySign(widget.sign.sign.name)
         ?.bisiness
         .getText(widget.day);
+    super.initState();
   }
+
   // TODO: get api for angles!
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-        initialChildSize: 1,
-        builder: (BuildContext context, ScrollController scrollController) {
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: HoroscopeMainPicture(sign: widget.sign),
-              ),
-              Expanded(
-                child: BottomContainer(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Row(
-                          children: [
-                            CircleText(
-                              title: "Love",
-                              angle: getAngle(widget.sign.sign.name, 0, widget.day),
-                              color: Colors.red,
-                            ),
-                            CircleText(
-                                title: "Health",
-                                angle: getAngle(widget.sign.sign.name, 1, widget.day),
-                                color: Colors.green),
-                            CircleText(
-                              title: "Business",
-                              angle: getAngle(widget.sign.sign.name, 2, widget.day),
-                              color: Colors.cyan,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: SingleChildScrollView(
-                            physics: BouncingScrollPhysics(),
-                            child: Column(
-                              children: [
-                                const IconTitle(
-                                    icon: Icon(Icons.star, color: Colors.cyan),
-                                    title: "Общий"),
-                                Horoscopecontent(text: textCommon),
-                                const IconTitle(
-                                    icon:
-                                        Icon(Icons.favorite, color: Colors.red),
-                                    title: "Любовь"),
-                                Horoscopecontent(text: textLove),
-                                const IconTitle(
-                                    icon: Icon(Icons.attach_money,
-                                        color: Colors.yellowAccent),
-                                    title: "Бизнес"),
-                                Horoscopecontent(text: textBusiness)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        });
+    return HoroscopeBody(
+      picture: HoroscopeMainPicture(sign: widget.sign),
+      circles: [
+        CircleText(
+          title: "Love",
+          angle: getAngle(widget.sign.sign.name, 0, widget.day),
+          color: Colors.red,
+        ),
+        CircleText(
+            title: "Health",
+            angle: getAngle(widget.sign.sign.name, 1, widget.day),
+            color: Colors.green),
+        CircleText(
+          title: "Business",
+          angle: getAngle(widget.sign.sign.name, 2, widget.day),
+          color: Colors.cyan,
+        ),
+      ],
+      content: [
+        const IconTitle(
+            icon: Icon(Icons.star, color: Colors.cyan), title: "Общий"),
+        Horoscopecontent(text: textCommon),
+        const IconTitle(
+            icon: Icon(Icons.favorite, color: Colors.red), title: "Любовь"),
+        Horoscopecontent(text: textLove),
+        const IconTitle(
+            icon: Icon(Icons.attach_money, color: Colors.yellowAccent),
+            title: "Бизнес"),
+        Horoscopecontent(text: textBusiness)
+      ],
+    );
   }
 }
 
@@ -161,7 +124,10 @@ double getAngle(String sign, int index, String day) {
   } else if (day == "tomorrow") {
     shift = 1;
   }
-  return 144 + (360.0 * signsProbability[sign]![index] * (DateTime.now().day + shift) + DateTime.now().month * 337) % 216.0;
+  return 144 +
+      (360.0 * signsProbability[sign]![index] * (DateTime.now().day + shift) +
+              DateTime.now().month * 337) %
+          216.0;
 }
 
 class HoroscopeMainPicture extends StatefulWidget {
