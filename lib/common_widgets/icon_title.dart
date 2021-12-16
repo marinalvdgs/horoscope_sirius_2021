@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
-import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
-import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 
 class IconTitle extends StatelessWidget {
   final Icon icon;
@@ -16,7 +14,7 @@ class IconTitle extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
           child: icon,
         ),
         Text(title, style: buttonTextStyle.copyWith(fontSize: 20)),
@@ -33,7 +31,7 @@ class Horoscopecontent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+      padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
       child: Text(text ?? "", style: headerMenuStyle.copyWith(fontSize: 14)),
     );
   }

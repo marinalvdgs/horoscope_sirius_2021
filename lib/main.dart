@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:horoscope_sirius_2021/screens/menu/menu_screen.dart';
@@ -14,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   await Hive.initFlutter();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

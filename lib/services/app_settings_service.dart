@@ -22,4 +22,8 @@ class AppSettingsService {
         settingsBox!.get('settings') ?? AppSettings(isLoggedIn: true);
     settingsBox!.put('settings', settings.copyWith(isLoggedIn: true));
   }
+
+  void onLogOut() {
+    settingsBox!.put('settings', AppSettings(isLoggedIn: false));
+  }
 }

@@ -20,15 +20,15 @@ final options = [
 ];
 
 Map<String, String> namesToUrl = {
-  "Horoscope" : "assets/horoscope.png",
-  "Compatibility" : "assets/compatibility.png",
-  "Personal" : "assets/personal.png",
-  "Profile" : "assets/profile.png",
+  "Horoscope": "assets/horoscope.png",
+  "Compatibility": "assets/compatibility.png",
+  "Personal": "assets/personal.png",
+  "Profile": "assets/profile.png",
 };
 
 Map<String, Widget> namesMenuToScreen = {
-  "Horoscope" : SignsScreen(),
-  "Compatibility" : CompatibilityScreen(),
-  "Personal" : HoroscopeScreen(sign: allSigns[0]),
-  "Profile" : ProfileScreen(),
+  "Horoscope": const SignsScreen(),
+  "Compatibility": const CompatibilityScreen(),
+  "Personal": HoroscopeScreen(sign: allSigns[0]),
+  "Profile": const ProfileScreen(),
 };

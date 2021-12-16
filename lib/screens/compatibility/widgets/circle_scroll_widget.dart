@@ -9,10 +9,13 @@ import 'package:horoscope_sirius_2021/common_widgets/circle_wheel_view/circle_wh
 class CircleScrollWidget extends StatelessWidget {
   final List<Widget> children;
   final WheelSide side;
+  final Function(int) onItemChanged;
+
   const CircleScrollWidget({
     Key? key,
     required this.children,
     required this.side,
+    required this.onItemChanged,
   }) : super(key: key);
 
   @override
@@ -47,6 +50,7 @@ class CircleScrollWidget extends StatelessWidget {
             clipToSize: false,
             renderChildrenOutsideViewport: true,
             physics: const CircleFixedExtentScrollPhysics(),
+            onSelectedItemChanged: onItemChanged,
             childDelegate:
                 CircleListWheelChildLoopingListDelegate(children: children),
           ),

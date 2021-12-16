@@ -11,7 +11,7 @@ class SignsScreen extends StatelessWidget {
     return SpacePage(
         body: CardsContainer(
       list: allSigns,
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
     ));
   }
 }

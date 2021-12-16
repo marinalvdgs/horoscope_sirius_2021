@@ -20,27 +20,30 @@ class PageWithResizingImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpacePage(
-      body: CustomScrollView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: Stack(
-              children: [
-                ResizingLogo(
-                  image: logoImage,
-                  title: logoTitle,
-                ),
-                if (appBar != null)
-                  Positioned(left: 0, right: 0, top: 0, child: appBar!)
-              ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 48),
+        child: CustomScrollView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Stack(
+                children: [
+                  ResizingLogo(
+                    image: logoImage,
+                    title: logoTitle,
+                  ),
+                  if (appBar != null)
+                    Positioned(left: 0, right: 0, top: 0, child: appBar!)
+                ],
+              ),
             ),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: BottomContainer(child: content),
-          ),
-        ],
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: BottomContainer(child: content),
+            ),
+          ],
+        ),
       ),
     );
   }

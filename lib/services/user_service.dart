@@ -25,4 +25,8 @@ class UserService {
     await userBox!.put('currentUser', user);
     userService.notify();
   }
+
+  void deleteUser() {
+    userBox!.delete('currentUser');
+  }
 }

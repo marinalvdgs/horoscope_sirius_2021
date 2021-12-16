@@ -8,7 +8,8 @@ class CircleText extends StatelessWidget {
   final double angle;
   final Color color;
 
-  const CircleText({Key? key, required this.title, required this.angle, required this.color})
+  const CircleText(
+      {Key? key, required this.title, required this.angle, required this.color})
       : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class CircleText extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Text(
                 title,
                 textAlign: TextAlign.left,
@@ -25,24 +26,24 @@ class CircleText extends StatelessWidget {
                   fontSize: 16,
                 ),
               )),
-          Container(
+          SizedBox(
             height: 60,
             width: 60,
-            child : TweenAnimationBuilder(
+            child: TweenAnimationBuilder(
               duration: const Duration(milliseconds: 1000),
               tween: Tween(begin: 0.0, end: angle),
               builder: (BuildContext context, dynamic value, Widget? child) {
-                  return CustomPaint(foregroundPainter: ArcPainter(angle: value, color: color),
-                    child: Center(child:Text((value / 360.0 * 100).toInt().toString(),
-                    style: buttonTextStyle.copyWith(fontSize: 18))),
-                  );
-                },
+                return CustomPaint(
+                  foregroundPainter: ArcPainter(angle: value, color: color),
+                  child: Center(
+                      child: Text((value / 360.0 * 100).toInt().toString(),
+                          style: buttonTextStyle.copyWith(fontSize: 18))),
+                );
+              },
             ),
           ),
         ],
       ),
     );
   }
-
-
 }
