@@ -28,16 +28,16 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
             backgroundColor: Colors.transparent,
             title: const TabBar(
               tabs: [
-                Tab(text: "Yesterday"),
-                Tab(text: "Today"),
-                Tab(text: "Tomorrow"),
+                Tab(text: "Вчера"),
+                Tab(text: "Сегодня"),
+                Tab(text: "Завтра"),
               ],
             ),
           ),
           body: TabBarView(
             children: [
-              HoroscopePage(sign: widget.sign, day: "today"),
               HoroscopePage(sign: widget.sign, day: "yesterday"),
+              HoroscopePage(sign: widget.sign, day: "today"),
               HoroscopePage(sign: widget.sign, day: "tomorrow"),
             ],
           ),
@@ -80,23 +80,22 @@ class _HoroscopeBodyScreenState extends State<HoroscopePage> {
     super.initState();
   }
 
-  // TODO: get api for angles!
   @override
   Widget build(BuildContext context) {
     return HoroscopeBody(
       picture: HoroscopeMainPicture(sign: widget.sign),
       circles: [
         CircleText(
-          title: "Love",
+          title: "Любовь",
           angle: getAngle(widget.sign.sign.name, 0, widget.day),
           color: Colors.red,
         ),
         CircleText(
-            title: "Health",
+            title: "Здоровье",
             angle: getAngle(widget.sign.sign.name, 1, widget.day),
             color: Colors.green),
         CircleText(
-          title: "Business",
+          title: "Бизнес",
           angle: getAngle(widget.sign.sign.name, 2, widget.day),
           color: Colors.cyan,
         ),
