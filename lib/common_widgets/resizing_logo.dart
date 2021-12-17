@@ -59,6 +59,7 @@ class _ResizingLogoState extends State<ResizingLogo>
         SizeTransition(
           sizeFactor: _animation,
           child: ScaleTransition(
+            key: const ValueKey('image'),
             scale: _animation,
             child: Center(
               child: SizedBox(
