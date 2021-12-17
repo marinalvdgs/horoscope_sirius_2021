@@ -9,13 +9,13 @@ double NUMBER_OF_FALLING_STARS = 0.05, NUMBER_OF_SPARKLING_STARS = 0.9;
 void onTapDown(BuildContext context, TapDownDetails details) {
   SPARKLE_STARS.add(SparkleStar.fromCoords(
       details.globalPosition.dx - 250 + Random().nextDouble() * 10,
-      details.globalPosition.dy - 60 + Random().nextDouble() * 10));
+      details.globalPosition.dy + Random().nextDouble() * 10));
 }
 
 void onPanUpdate(BuildContext context, DragUpdateDetails details) {
   SPARKLE_STARS.add(SparkleStar.fromCoords(
       details.globalPosition.dx - 250 + Random().nextDouble() * 10,
-      details.globalPosition.dy - 60 + Random().nextDouble() * 10));
+      details.globalPosition.dy + Random().nextDouble() * 10));
 }
 
 void process_stars() {
@@ -68,9 +68,6 @@ class _MyLoader extends State<MagicLoader> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Demo"),
-        ),
         body: GestureDetector(
             onTapDown: (TapDownDetails details) => onTapDown(context, details),
             onPanUpdate: (DragUpdateDetails details) =>
@@ -96,12 +93,6 @@ class _MyLoader extends State<MagicLoader> with SingleTickerProviderStateMixin {
                       ),
                     ),
                   ],
-                ),
-              ),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("background.jpg"),
-                  fit: BoxFit.cover,
                 ),
               ),
             )));
