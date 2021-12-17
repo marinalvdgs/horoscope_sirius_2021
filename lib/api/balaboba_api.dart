@@ -17,7 +17,7 @@ class BalabobaApi {
         HttpHeaders.contentTypeHeader: "application/json",
       }),
       data: jsonEncode({
-        "query": str, //"Булат"
+        "query": "Булат",
         "intro": 10
       }),
     );
