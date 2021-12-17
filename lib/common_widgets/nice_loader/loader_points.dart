@@ -10,13 +10,15 @@ class ColorLoaderPoints extends StatefulWidget {
   final DotType dotType;
   final Icon dotIcon;
 
-  ColorLoaderPoints(
-      {this.dotOneColor = Colors.purple,
+  const ColorLoaderPoints(
+      {Key? key,
+      this.dotOneColor = Colors.purple,
       this.dotTwoColor = Colors.green,
       this.dotThreeColor = Colors.blueAccent,
       this.duration = const Duration(milliseconds: 1000),
       this.dotType = DotType.circle,
-      this.dotIcon = const Icon(Icons.blur_on)});
+      this.dotIcon = const Icon(Icons.blur_on)})
+      : super(key: key);
 
   @override
   _ColorLoaderPointsState createState() => _ColorLoaderPointsState();
@@ -38,14 +40,14 @@ class _ColorLoaderPointsState extends State<ColorLoaderPoints>
     animation_1 = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, 0.80, curve: Curves.ease),
+        curve: const Interval(0.0, 0.80, curve: Curves.ease),
       ),
     );
 
     animation_2 = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.1, 0.9, curve: Curves.ease),
+        curve: const Interval(0.1, 0.9, curve: Curves.ease),
       ),
     );
 
@@ -67,49 +69,47 @@ class _ColorLoaderPointsState extends State<ColorLoaderPoints>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Transform.translate(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Transform.translate(
+          offset: Offset(
+            0.0,
+            -50 *
+                (animation_1.value <= 0.50
+                    ? animation_1.value
+                    : 1.0 - animation_1.value),
+          ),
+          child: OneDot(
+            widget: widget,
+            color: widget.dotOneColor,
+          ),
+        ),
+        Transform.translate(
             offset: Offset(
               0.0,
               -50 *
-                  (animation_1.value <= 0.50
-                      ? animation_1.value
-                      : 1.0 - animation_1.value),
+                  (animation_2.value <= 0.50
+                      ? animation_2.value
+                      : 1.0 - animation_2.value),
             ),
             child: OneDot(
               widget: widget,
-              color: widget.dotOneColor,
+              color: widget.dotTwoColor,
+            )),
+        Transform.translate(
+            offset: Offset(
+              0.0,
+              -50 *
+                  (animation_3.value <= 0.50
+                      ? animation_3.value
+                      : 1.0 - animation_3.value),
             ),
-          ),
-          Transform.translate(
-              offset: Offset(
-                0.0,
-                -50 *
-                    (animation_2.value <= 0.50
-                        ? animation_2.value
-                        : 1.0 - animation_2.value),
-              ),
-              child: OneDot(
-                widget: widget,
-                color: widget.dotTwoColor,
-              )),
-          Transform.translate(
-              offset: Offset(
-                0.0,
-                -50 *
-                    (animation_3.value <= 0.50
-                        ? animation_3.value
-                        : 1.0 - animation_3.value),
-              ),
-              child: OneDot(
-                widget: widget,
-                color: widget.dotThreeColor,
-              )),
-        ],
-      ),
+            child: OneDot(
+              widget: widget,
+              color: widget.dotThreeColor,
+            )),
+      ],
     );
   }
 
@@ -147,7 +147,8 @@ class Dot extends StatelessWidget {
   final DotType? type;
   final Icon? icon;
 
-  Dot({this.radius, this.color, this.type, this.icon});
+  const Dot({Key? key, this.radius, this.color, this.type, this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
