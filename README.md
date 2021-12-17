@@ -24,6 +24,7 @@
 
 ## Дизайн
  - [Дизайн](https://graphicriver.net/item/astro-app-ui-astrology-horoscope-app/29881214)
+ - [Figma](https://www.figma.com/file/uwaPPxz2Cd3ECQxayjQNlG/horoscope?node-id=0%3A1)
 
 ## Работа с сетью
  - [Гороскоп](https://ignio.com/static/r/public/export/xml.html)

@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "98037737033",
+    "project_id": "horoscope-sirius-2021",
+    "storage_bucket": "horoscope-sirius-2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98037737033:android:4ca0d847b0ea2bbbf80198",
+        "android_client_info": {
+          "package_name": "com.example.horoscope_sirius_2021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98037737033-0ausohm0gu7it1epm1j3hbv77e5tllgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.horoscope_sirius_2021",
+            "certificate_hash": "2069c7de09561511ac6d692de8fdb5f7676b4442"
+          }
+        },
+        {
+          "client_id": "98037737033-stut5k45mb4a1vuibtmma8of08j0acf7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.horoscope_sirius_2021",
+            "certificate_hash": "d7b8abfa1adabb5427d7dc2355439a41f772ca05"
+          }
+        },
+        {
+          "client_id": "98037737033-ue8gusle7jeiunu9065d24flhuefut3e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.horoscope_sirius_2021",
+            "certificate_hash": "ddffb29d4fa4a9e468d6c6f689c97f87664a4229"
+          }
+        },
+        {
+          "client_id": "98037737033-5hfemsp3dqjajt27ilug339284k5qvir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq1MulwEYZn-x6fKKY4mbASROhQBTBeUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98037737033-5hfemsp3dqjajt27ilug339284k5qvir.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "98037737033-hde8shr4rjrsirtev5fisgfpofcqn557.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.horoscopeSirius2021"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
