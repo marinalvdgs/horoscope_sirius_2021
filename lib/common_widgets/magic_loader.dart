@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'dart:math';
 
 List<FallingStar> STARS = [];
@@ -8,21 +7,12 @@ List<SparkleStar> SPARKLE_STARS = [];
 double NUMBER_OF_FALLING_STARS = 0.05, NUMBER_OF_SPARKLING_STARS = 0.9;
 
 void onTapDown(BuildContext context, TapDownDetails details) {
-  print("${details.globalPosition.dx}, ${details.globalPosition.dy}");
-  SPARKLE_STARS.add(SparkleStar.fromCoords(
-      details.globalPosition.dx - 250 + Random().nextDouble() * 10,
-      details.globalPosition.dy - 60 + Random().nextDouble() * 10));
-}
-
-void onPanStart(BuildContext context, DragUpdateDetails details) {
-  print("${details.globalPosition.dx}, ${details.globalPosition.dy}");
   SPARKLE_STARS.add(SparkleStar.fromCoords(
       details.globalPosition.dx - 250 + Random().nextDouble() * 10,
       details.globalPosition.dy - 60 + Random().nextDouble() * 10));
 }
 
 void onPanUpdate(BuildContext context, DragUpdateDetails details) {
-  print("${details.globalPosition.dx}, ${details.globalPosition.dy}");
   SPARKLE_STARS.add(SparkleStar.fromCoords(
       details.globalPosition.dx - 250 + Random().nextDouble() * 10,
       details.globalPosition.dy - 60 + Random().nextDouble() * 10));
@@ -52,13 +42,12 @@ void process_stars() {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MagicLoader extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyLoader createState() => _MyLoader();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _MyLoader extends State<MagicLoader> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -78,10 +67,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
-    var r = 170;
-    var g = 170;
-    var b = 170;
-
     return Scaffold(
         appBar: AppBar(
           title: Text("Demo"),
@@ -113,9 +98,9 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("background.jpeg"),
+                  image: AssetImage("background.jpg"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -208,27 +193,5 @@ class SparkleStar {
     }
 
     return true;
-=======
-import 'package:horoscope_sirius_2021/common/style.dart';
-import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
-
-/// Placeholder for loader.dart
-class MagicLoader extends StatelessWidget {
-  const MagicLoader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SpacePage(
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(24)),
-              color: darkBackgroundColor),
-          child: const CircularProgressIndicator(color: Colors.white),
-        ),
-      ),
-    );
->>>>>>> origin/master
   }
 }
