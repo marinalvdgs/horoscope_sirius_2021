@@ -50,7 +50,7 @@ class CardsContainer extends StatelessWidget {
               itemBuilder: (context, index) {
                 return CardInstance(
                   option: list[index],
-                  nextScreen: namesMenuToScreen[list[index].title] ??
+                  nextScreen: namesMenuToScreen[list[index].name] ??
                       HoroscopeScreen(sign: allSigns[index]),
                   height: 150,
                 );

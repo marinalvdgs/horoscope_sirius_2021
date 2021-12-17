@@ -18,13 +18,13 @@ class GlowText extends StatelessWidget {
         shadows: const <Shadow>[
           Shadow(
             offset: Offset(0, 0),
-            blurRadius: 3.0,
+            blurRadius: 5.0,
             color: Color(0xFF000000),
           ),
           Shadow(
             offset: Offset(0.5, 0.5),
             blurRadius: 10.0,
-            color: Color(0xFF845EC2),
+            color: Colors.white,
           ),
         ],
       ),

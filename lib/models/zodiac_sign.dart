@@ -8,7 +8,7 @@ class ZodiacSign extends CardOption{
   ZodiacSign({
     required this.sign,
     required this.image,
-  }) : super(image : image, title: sign.title);
+  }) : super(image : image, title: sign.title, name: sign.name);
 }
 
 final allSigns = <ZodiacSign>[

@@ -76,7 +76,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   );
                 } else {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 148.0),
+                    padding: const EdgeInsets.only(top: 180.0),
                     child: ColorLoaderPoints(),
                   );
                 }

@@ -49,21 +49,15 @@ class HoroscopeApi {
   }
 
   bool _needChange(DateTime dateTime) {
-    DateTime date = DateTime(DateTime.now().day);
-    return dateTime.add(const Duration(days: 1)).millisecondsSinceEpoch >
-        date.millisecondsSinceEpoch;
+    int hours = DateTime.now().difference(dateTime).inHours;
+    return hours > 24;
   }
 
   Future<void> init() async {
-    await dao.clearAll();
-    await _initHoro(dao);
-  }
-
-  // check just love
-  Future<void> _update(String sign) async {
-    var db = dao.getItem(sign);
+    var db = dao.getItem("libra");
     if (db == null || _needChange(db.love.date)) {
-      await init();
+      await dao.clearAll();
+      await _initHoro(dao);
     }
   }
 

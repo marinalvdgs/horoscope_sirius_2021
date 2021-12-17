@@ -23,7 +23,7 @@ final titleTextStyle = GoogleFonts.kosugiMaru(
   textStyle: const TextStyle(fontSize: 30),
 );
 
-final buttonTextStyle = GoogleFonts.ubuntuMono(
+final buttonTextStyle = GoogleFonts.yanoneKaffeesatz(
   fontSize: 24,
   color: Colors.white,
   letterSpacing: 4.5,

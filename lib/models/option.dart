@@ -9,15 +9,16 @@ import 'package:horoscope_sirius_2021/screens/signs/signs.dart';
 class CardOption {
   String image;
   String title;
+  String name;
 
-  CardOption({required this.image, required this.title});
+  CardOption({required this.image, required this.title, required this.name});
 }
 
 final options = [
-  CardOption(image: namesToUrl["Horoscope"]!, title: "Horoscope"),
-  CardOption(image: namesToUrl["Compatibility"]!, title: "Compatibility"),
-  CardOption(image: namesToUrl["Personal"]!, title: "Personal"),
-  CardOption(image: namesToUrl["Profile"]!, title: "Profile"),
+  CardOption(image: namesToUrl["Horoscope"]!, name: "Horoscope", title: "Гороскоп"),
+  CardOption(image: namesToUrl["Compatibility"]!, name: "Compatibility", title : "Совместимость"),
+  CardOption(image: namesToUrl["Personal"]!, name: "Personal", title : "Личный"),
+  CardOption(image: namesToUrl["Profile"]!, name: "Profile", title : "Профиль"),
 ];
 
 Map<String, String> namesToUrl = {
@@ -30,6 +31,6 @@ Map<String, String> namesToUrl = {
 Map<String, Widget> namesMenuToScreen = {
   "Horoscope": const SignsScreen(),
   "Compatibility": const CompatibilityScreen(),
-  "Personal": PersonalScreen(),
+  "Personal": const PersonalScreen(),
   "Profile": const ProfileScreen(),
 };

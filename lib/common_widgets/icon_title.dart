@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
+import 'package:horoscope_sirius_2021/common_widgets/glow_text.dart';
 
 class IconTitle extends StatelessWidget {
   final Icon icon;
@@ -17,7 +18,7 @@ class IconTitle extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
           child: icon,
         ),
-        Text(title, style: buttonTextStyle.copyWith(fontSize: 20)),
+        GlowText(text: title, textStyle: buttonTextStyle.copyWith(fontSize: 20)),
       ],
     );
   }

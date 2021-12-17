@@ -22,8 +22,8 @@ class CircleText extends StatelessWidget {
               child: Text(
                 title,
                 textAlign: TextAlign.left,
-                style: headerMenuStyle.copyWith(
-                  fontSize: 16,
+                style: subtitleTextStyle.copyWith(
+                  fontSize: 18,
                 ),
               )),
           SizedBox(
