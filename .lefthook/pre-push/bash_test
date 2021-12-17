@@ -1,0 +1,28 @@
+#!bin/bash
+
+files=$(git diff --name-only @{upstream} -- . ':!test' | awk -F'[/.]' '{ print "test/"$(NF-1)"_test.dart" }')
+echo Files: [$files]
+if [[ $files != "" ]];
+  then
+    for val in $files
+    do
+      if [[ -f "$val" ]];
+      then newfiles+=$val' '
+      fi
+    done
+
+    echo Files after filter: [$newfiles]
+
+    if [[ $newfiles == "" ]];
+    then
+      echo No files to test
+      exit 0
+    fi
+    flutter test $newfiles
+    res=$?
+    echo  $res
+    if [[ $res -ne 0 ]];
+    then exit 1
+    fi
+fi
+exit 0

@@ -36,7 +36,7 @@ Sign getZodiacSign(DateTime birth) {
       sign = Sign(name: 'taurus', title: 'Телец');
     }
   } else if (month == 5) {
-    if (day < 21) {
+    if (day < 1) {
       sign = Sign(name: 'taurus', title: 'Телец');
     } else {
       sign = Sign(name: 'gemini', title: 'Близнецы');
