@@ -1,115 +1,139 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
+  }
+}
+
+List<Star> STARS = [];
+
+void process_stars() {
+  for (int i = 0; i < STARS.length; i++) {
+    if (!STARS[i].fall()) {
+      STARS.removeAt(i);
+      i -= 1;
+    }
+  }
+  debugPrint(Random().nextDouble().toString());
+  if (Random().nextDouble() > 0.95) {
+    STARS.add(Star());
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 10000),
+      vsync: this,
+    )..repeat();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    var r = 170;
+    var g = 170;
+    var b = 170;
+
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        appBar: AppBar(
+          title: Text("Demo"),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (_, __) {
+                  debugPrint("1111");
+                  process_stars();
+                  return CustomPaint(
+                    painter: MyPainter(),
+                  );
+                },
+              ),
+              RotationTransition(
+                turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+                child: Image.asset(
+                  "horo_circle.png",
+                  width: 300,
+                ),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.grey[900]);
+  }
+}
+
+class MyPainter extends CustomPainter {
+  // final List<SnowFlake> snowflakes;
+
+  MyPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    final c = size.center(Offset.zero);
+
+    final whitePaint = Paint()..color = Colors.yellow.shade50;
+
+    canvas.drawCircle(c - Offset(0, 0), 0, whitePaint);
+
+    STARS.forEach((star) => drawStar(canvas, star, whitePaint));
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
+void drawStar(Canvas canvas, Star star, Paint paint) {
+  canvas.drawCircle(Offset(star.x, star.y), 2, paint);
+  canvas.drawLine(
+      Offset(star.x, star.y),
+      Offset(star.x - 5 * star.velocity * cos(star.angle),
+          star.y - 5 * star.velocity * sin(star.angle)),
+      paint);
+}
+
+class Star {
+  double x = Random().nextDouble() * 800;
+  double y = Random().nextDouble() * 800;
+  double velocity = Random().nextDouble() * 16 + 8;
+  double angle = Random().nextDouble() * 2 * pi;
+  double counter = 0;
+
+  Star();
+
+  fall() {
+    counter++;
+    y += velocity * sin(angle);
+    x += velocity * cos(angle);
+
+    if (counter > 45) return false;
+    return true;
   }
 }
