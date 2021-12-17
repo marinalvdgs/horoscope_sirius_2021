@@ -4,7 +4,28 @@ import 'dart:math';
 List<FallingStar> STARS = [];
 List<SparkleStar> SPARKLE_STARS = [];
 
-double NUMBER_OF_FALLING_STARS = 0.2, NUMBER_OF_SPARKLING_STARS = 0.5;
+double NUMBER_OF_FALLING_STARS = 0.05, NUMBER_OF_SPARKLING_STARS = 0.9;
+
+void onTapDown(BuildContext context, TapDownDetails details) {
+  print("${details.globalPosition.dx}, ${details.globalPosition.dy}");
+  SPARKLE_STARS.add(SparkleStar.fromCoords(
+      details.globalPosition.dx - 250 + Random().nextDouble() * 10,
+      details.globalPosition.dy - 60 + Random().nextDouble() * 10));
+}
+
+void onPanStart(BuildContext context, DragUpdateDetails details) {
+  print("${details.globalPosition.dx}, ${details.globalPosition.dy}");
+  SPARKLE_STARS.add(SparkleStar.fromCoords(
+      details.globalPosition.dx - 250 + Random().nextDouble() * 10,
+      details.globalPosition.dy - 60 + Random().nextDouble() * 10));
+}
+
+void onPanUpdate(BuildContext context, DragUpdateDetails details) {
+  print("${details.globalPosition.dx}, ${details.globalPosition.dy}");
+  SPARKLE_STARS.add(SparkleStar.fromCoords(
+      details.globalPosition.dx - 250 + Random().nextDouble() * 10,
+      details.globalPosition.dy - 60 + Random().nextDouble() * 10));
+}
 
 void process_stars() {
   for (int i = 0; i < STARS.length; i++) {
@@ -13,7 +34,7 @@ void process_stars() {
       i -= 1;
     }
   }
-  debugPrint(Random().nextDouble().toString());
+
   if (Random().nextDouble() < NUMBER_OF_FALLING_STARS) {
     STARS.add(FallingStar());
   }
@@ -24,7 +45,7 @@ void process_stars() {
       i -= 1;
     }
   }
-  debugPrint(Random().nextDouble().toString());
+
   if (Random().nextDouble() < NUMBER_OF_SPARKLING_STARS) {
     SPARKLE_STARS.add(SparkleStar());
   }
@@ -64,29 +85,41 @@ class _MyHomePageState extends State<MyHomePage>
         appBar: AppBar(
           title: Text("Demo"),
         ),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              AnimatedBuilder(
-                animation: _controller,
-                builder: (_, __) {
-                  process_stars();
-                  return CustomPaint(
-                    painter: MyPainter(),
-                  );
-                },
-              ),
-              RotationTransition(
-                turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
-                child: Image.asset(
-                  "horo_circle_alpha.png",
-                  width: 400,
+        body: GestureDetector(
+            onTapDown: (TapDownDetails details) => onTapDown(context, details),
+            onPanUpdate: (DragUpdateDetails details) =>
+                onPanUpdate(context, details),
+            child: Container(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    AnimatedBuilder(
+                      animation: _controller,
+                      builder: (_, __) {
+                        process_stars();
+                        return CustomPaint(
+                          painter: MyPainter(),
+                        );
+                      },
+                    ),
+                    RotationTransition(
+                      turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+                      child: Image.asset(
+                        "horo_circle_alpha.png",
+                        width: 400,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-        backgroundColor: Colors.grey[900]);
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("bg.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )));
+    // backgroundColor: Colors.grey[900]);
   }
 }
 
@@ -127,7 +160,7 @@ void drawStar(Canvas canvas, FallingStar star, Paint paint, w, h) {
 class FallingStar {
   double x = Random().nextDouble() * 500 - 250;
   double y = Random().nextDouble() * 800;
-  double velocity = Random().nextDouble() * 16 + 8;
+  double velocity = Random().nextDouble() * 10 + 5;
   double angle = Random().nextDouble() * pi;
   double counter = 0;
 
@@ -146,12 +179,17 @@ class FallingStar {
 class SparkleStar {
   double x = Random().nextDouble() * 500 - 250;
   double y = Random().nextDouble() * 800;
-  double radius = (Random().nextDouble() * 2 + 1).toInt().toDouble();
+  double radius = Random().nextDouble() * 1 + 0.5;
   double alpha = 0;
   double step = 0.02;
   bool increasing = true;
 
   SparkleStar();
+
+  SparkleStar.fromCoords(_x, _y) {
+    x = _x;
+    y = _y;
+  }
 
   sparkle() {
     // ignore: curly_braces_in_flow_control_structures
