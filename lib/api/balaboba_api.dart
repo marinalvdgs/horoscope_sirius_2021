@@ -11,10 +11,15 @@ class BalabobaApi {
   });
 
   Future<String> getBalaboba(String str) async {
-    Response response = await dio.request("/text3",
-        options: Options(method: 'POST', headers: {
-          HttpHeaders.contentTypeHeader: "application/json",
-        }), data: jsonEncode({"query": "Булат", "intro": 10}),
+    Response response = await dio.request(
+      "/text3",
+      options: Options(method: 'POST', headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      }),
+      data: jsonEncode({
+        "query": str, //"Булат"
+        "intro": 10
+      }),
     );
     if (response.statusCode == 200) {
       Map data = response.data;
