@@ -79,8 +79,8 @@ class _MyHomePageState extends State<MyHomePage>
               RotationTransition(
                 turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
                 child: Image.asset(
-                  "horo_circle.png",
-                  width: 300,
+                  "horo_circle_alpha.png",
+                  width: 400,
                 ),
               ),
             ],
@@ -105,7 +105,9 @@ class MyPainter extends CustomPainter {
 
     STARS.forEach((star) => drawStar(canvas, star, whitePaint, w, h));
 
-    SPARKLE_STARS.forEach((star) => canvas.drawCircle(Offset(star.x, star.y), 2,
+    SPARKLE_STARS.forEach((star) => canvas.drawCircle(
+        Offset(star.x, star.y),
+        star.radius,
         Paint()..color = Color.fromRGBO(255, 255, 220, star.alpha)));
   }
 
@@ -144,6 +146,7 @@ class FallingStar {
 class SparkleStar {
   double x = Random().nextDouble() * 500 - 250;
   double y = Random().nextDouble() * 800;
+  double radius = (Random().nextDouble() * 2 + 1).toInt().toDouble();
   double alpha = 0;
   double step = 0.02;
   bool increasing = true;
