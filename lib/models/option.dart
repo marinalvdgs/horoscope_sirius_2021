@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/screens/compatibility/compatibility_screen.dart';
-import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 import 'package:horoscope_sirius_2021/screens/personal/personal_screen.dart';
 import 'package:horoscope_sirius_2021/screens/profile/profile_screen.dart';
 import 'package:horoscope_sirius_2021/screens/signs/signs.dart';
@@ -15,10 +13,14 @@ class CardOption {
 }
 
 final options = [
-  CardOption(image: namesToUrl["Horoscope"]!, name: "Horoscope", title: "Гороскоп"),
-  CardOption(image: namesToUrl["Compatibility"]!, name: "Compatibility", title : "Совместимость"),
-  CardOption(image: namesToUrl["Personal"]!, name: "Personal", title : "Личный"),
-  CardOption(image: namesToUrl["Profile"]!, name: "Profile", title : "Профиль"),
+  CardOption(
+      image: namesToUrl["Horoscope"]!, name: "Horoscope", title: "Гороскоп"),
+  CardOption(
+      image: namesToUrl["Compatibility"]!,
+      name: "Compatibility",
+      title: "Совместимость"),
+  CardOption(image: namesToUrl["Personal"]!, name: "Personal", title: "Личный"),
+  CardOption(image: namesToUrl["Profile"]!, name: "Profile", title: "Профиль"),
 ];
 
 Map<String, String> namesToUrl = {
