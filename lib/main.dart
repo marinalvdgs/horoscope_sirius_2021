@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               [initHoroService, initAppSettingsService, initBalabobaService]),
           builder: (context, value) {
             if (appSettingsService.state.settingsBox == null) {
-              return const MagicLoader();
+              return MagicLoader();
             }
             final isLoggedIn = appSettingsService.state.isUserLoggedIn();
             return FutureBuilder(

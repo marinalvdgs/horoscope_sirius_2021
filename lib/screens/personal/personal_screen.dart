@@ -78,10 +78,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                     ),
                   );
                 } else {
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 180.0),
-                    child: MagicLoader(),
-                  );
+                  return MagicLoader();
                 }
               })
         ],
