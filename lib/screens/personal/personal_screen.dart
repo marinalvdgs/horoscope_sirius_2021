@@ -36,7 +36,12 @@ class _PersonalScreenState extends State<PersonalScreen> {
               Column(
                 children: [
                   HoroscopeMainPicture(sign: zodiacSign),
-                  Text('$name, \nзвёзды предсказывают', style: subtitleTextStyle, maxLines: 2, textAlign: TextAlign.center,)
+                  Text(
+                    '$name, \nзвёзды предсказывают',
+                    style: subtitleTextStyle,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  )
                 ],
               ),
               Positioned(
@@ -75,10 +80,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                     ),
                   );
                 } else {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 180.0),
-                    child: ColorLoaderPoints(),
-                  );
+                  return MagicLoader();
                 }
               })
         ],

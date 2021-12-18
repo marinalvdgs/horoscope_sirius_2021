@@ -67,36 +67,37 @@ class _MyLoader extends State<MagicLoader> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: GestureDetector(
-            onTapDown: (TapDownDetails details) => onTapDown(context, details),
-            onPanUpdate: (DragUpdateDetails details) =>
-                onPanUpdate(context, details),
-            child: Container(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    AnimatedBuilder(
-                      animation: _controller,
-                      builder: (_, __) {
-                        process_stars();
-                        return CustomPaint(
-                          painter: MyPainter(),
-                        );
-                      },
-                    ),
-                    RotationTransition(
-                      turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
-                      child: Image.asset(
-                        "horo_circle_alpha.png",
-                        width: 400,
-                      ),
-                    ),
-                  ],
+    return GestureDetector(
+        onTapDown: (TapDownDetails details) => onTapDown(context, details),
+        onPanUpdate: (DragUpdateDetails details) =>
+            onPanUpdate(context, details),
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Positioned(
+                top: 0,
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (_, __) {
+                    process_stars();
+                    return CustomPaint(
+                      painter: MyPainter(),
+                    );
+                  },
                 ),
               ),
-            )));
-    // backgroundColor: Colors.grey[900]);
+              RotationTransition(
+                turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+                child: Image.asset(
+                  "assets/horo_circle_alpha.png",
+                  width: 200,
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
 

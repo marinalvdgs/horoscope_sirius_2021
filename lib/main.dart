@@ -34,8 +34,6 @@ class MyApp extends StatelessWidget {
       home: FutureBuilder(
           future: Future.wait(
               [initHoroService, initAppSettingsService, initBalabobaService]),
-          future: Future.wait(
-              [initHoroService, initAppSettingsService, initBalabobaService]),
           builder: (context, value) {
             if (appSettingsService.state.settingsBox == null) {
               return MagicLoader();
@@ -45,9 +43,6 @@ class MyApp extends StatelessWidget {
                 future: initUserService,
                 builder: (context, val) {
                   if (isLoggedIn) {
-                    return MenuScreen(
-                      list: options,
-                    );
                     return MenuScreen(
                       list: options,
                     );
