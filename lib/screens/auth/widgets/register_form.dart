@@ -84,6 +84,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
               InputTextField(
+                key: const ValueKey('name'),
                 icon: Icons.person,
                 hintText: 'Имя',
                 controller: nameController,

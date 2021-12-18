@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:horoscope_sirius_2021/common/style.dart';
 import 'package:horoscope_sirius_2021/common_widgets/horoscope_body.dart';
 import 'package:horoscope_sirius_2021/common_widgets/magic_loader.dart';
-import 'package:horoscope_sirius_2021/common_widgets/nice_loader/loader_points.dart';
-import 'package:horoscope_sirius_2021/common_widgets/page_with_resizing_image.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
@@ -63,7 +61,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
         content: [
           FutureBuilder<String>(
               future: balabobaService.state
-                  .getBalaboba(name + " " + zodiacSign.sign.title),
+                  .getBalaboba(name + ", " + zodiacSign.sign.title),
               // a previously-obtained Future<String> or null
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 if (snapshot.hasData) {
@@ -72,7 +70,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           child: Text(snapshot.data!,
                               style: headerMenuStyle.copyWith(fontSize: 20)),
                         ),
