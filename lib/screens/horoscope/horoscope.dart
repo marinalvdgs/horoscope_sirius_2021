@@ -6,6 +6,8 @@ import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 
+import '../../common_widgets/horoscope_content.dart';
+
 class HoroscopeScreen extends StatefulWidget {
   final ZodiacSign sign;
 
@@ -27,18 +29,28 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
             elevation: 0,
             backgroundColor: Colors.transparent,
             title: const TabBar(
-              tabs: [
-                Tab(text: "Вчера"),
-                Tab(text: "Сегодня"),
-                Tab(text: "Завтра"),
-              ],
-            ),
+                    tabs: [
+                      Tab(text: "Вчера"),
+                      Tab(text: "Сегодня"),
+                      Tab(text: "Завтра"),
+                    ],
+                  ),
           ),
-          body: TabBarView(
+          body: Column(
             children: [
-              HoroscopePage(sign: widget.sign, day: "yesterday"),
-              HoroscopePage(sign: widget.sign, day: "today"),
-              HoroscopePage(sign: widget.sign, day: "tomorrow"),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: HoroscopeMainPicture(sign: widget.sign),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    HoroscopePage(sign: widget.sign, day: "yesterday"),
+                    HoroscopePage(sign: widget.sign, day: "today"),
+                    HoroscopePage(sign: widget.sign, day: "tomorrow"),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -82,37 +94,38 @@ class _HoroscopeBodyScreenState extends State<HoroscopePage> {
 
   @override
   Widget build(BuildContext context) {
-    return HoroscopeBody(
-      picture: HoroscopeMainPicture(sign: widget.sign),
-      circles: [
-        CircleText(
-          title: "Любовь",
-          angle: getAngle(widget.sign.sign.name, 0, widget.day),
-          color: Colors.red,
-        ),
-        CircleText(
-            title: "Здоровье",
-            angle: getAngle(widget.sign.sign.name, 1, widget.day),
-            color: Colors.green),
-        CircleText(
-          title: "Бизнес",
-          angle: getAngle(widget.sign.sign.name, 2, widget.day),
-          color: Colors.cyan,
-        ),
-      ],
-      content: [
-        const IconTitle(
-            icon: Icon(Icons.star, color: Colors.cyan), title: "Общий"),
-        Horoscopecontent(text: textCommon),
-        const IconTitle(
-            icon: Icon(Icons.favorite, color: Colors.red), title: "Любовь"),
-        Horoscopecontent(text: textLove),
-        const IconTitle(
-            icon: Icon(Icons.attach_money, color: Colors.yellowAccent),
-            title: "Бизнес"),
-        Horoscopecontent(text: textBusiness)
-      ],
-    );
+    return Column(children: [
+      HoroscopeContent(
+        circles: [
+          CircleText(
+            title: "Любовь",
+            angle: getAngle(widget.sign.sign.name, 0, widget.day),
+            color: Colors.red,
+          ),
+          CircleText(
+              title: "Здоровье",
+              angle: getAngle(widget.sign.sign.name, 1, widget.day),
+              color: Colors.green),
+          CircleText(
+            title: "Бизнес",
+            angle: getAngle(widget.sign.sign.name, 2, widget.day),
+            color: Colors.cyan,
+          ),
+        ],
+        content: [
+          const IconTitle(
+              icon: Icon(Icons.star, color: Colors.cyan), title: "Общий"),
+          Horoscopecontent(text: textCommon),
+          const IconTitle(
+              icon: Icon(Icons.favorite, color: Colors.red), title: "Любовь"),
+          Horoscopecontent(text: textLove),
+          const IconTitle(
+              icon: Icon(Icons.attach_money, color: Colors.yellowAccent),
+              title: "Бизнес"),
+          Horoscopecontent(text: textBusiness)
+        ],
+      )
+    ]);
   }
 }
 
