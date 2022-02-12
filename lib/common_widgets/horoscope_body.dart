@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:horoscope_sirius_2021/common_widgets/bottom_container.dart';
 
+import 'horoscope_content.dart';
+
 class HoroscopeBody extends StatelessWidget {
   final Widget picture;
   final List<Widget>? circles;
@@ -22,28 +24,9 @@ class HoroscopeBody extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: picture,
         ),
-        Expanded(
-          child: BottomContainer(
-            child: Column(
-              children: [
-                if (circles != null) Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: circles!,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(children: content),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+        HoroscopeContent(
+          circles : circles,
+          content : content
         )
       ],
     );
