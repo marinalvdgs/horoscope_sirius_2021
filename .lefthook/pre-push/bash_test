@@ -12,13 +12,13 @@ if [[ $files != "" ]];
     done
 
     echo Files after filter: [$newfiles]
-
-    if [[ $newfiles == "" ]];
-    then
-      echo No files to test
-      exit 0
-    fi
-    flutter test $newfiles
+    flutter test
+#     if [[ $newfiles == "" ]];
+#     then
+#       echo No files to test
+#       exit 0
+#     fi
+#     flutter test $newfiles
     res=$?
     echo  $res
     if [[ $res -ne 0 ]];
