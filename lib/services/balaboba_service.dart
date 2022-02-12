@@ -16,8 +16,12 @@ class BalabobaService {
   }
 
   Future<String> getBalaboba(String str) async {
-    String firstPart = await api!.getBalaboba(str);
-    String secondPart = await api!.getBalaboba(str);
-    return firstPart + "\n\n" + secondPart;
+    Future<String> firstPart = api!.getBalaboba(str);
+    Future<String> secondPart = api!.getBalaboba(str);
+    var futures = <Future>[];
+    futures.add(firstPart);
+    futures.add(secondPart);
+    await Future.wait(futures);
+    return (await firstPart) + "...\n\n" + (await secondPart) + "..";
   }
 }
