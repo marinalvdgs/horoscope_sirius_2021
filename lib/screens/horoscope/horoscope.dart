@@ -104,8 +104,11 @@ class HoroscopePage extends StatefulWidget {
 
   final Function(String day) notifyParent;
 
-  const HoroscopePage({Key? key, required this.sign, required this.day, required this.notifyParent})
-      : super(key: key);
+  // TODO: it's should be const only change the current day in parent
+  HoroscopePage({Key? key, required this.sign, required this.day, required this.notifyParent})
+      : super(key: key) {
+    notifyParent(day);
+  }
 
   @override
   _HoroscopeBodyScreenState createState() => _HoroscopeBodyScreenState();
