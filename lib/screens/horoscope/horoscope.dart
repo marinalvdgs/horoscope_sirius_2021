@@ -1,12 +1,18 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:horoscope_sirius_2021/common_widgets/circle_text.dart';
 import 'package:horoscope_sirius_2021/common_widgets/horoscope_body.dart';
 import 'package:horoscope_sirius_2021/common_widgets/icon_title.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:social_share/social_share.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../common_widgets/horoscope_content.dart';
+import '../../models/full_horo.dart';
 
 class HoroscopeScreen extends StatefulWidget {
   final ZodiacSign sign;
@@ -18,6 +24,9 @@ class HoroscopeScreen extends StatefulWidget {
 }
 
 class _HoroscopeScreenState extends State<HoroscopeScreen> {
+
+  String currentDay = "yesterday";
+
   @override
   Widget build(BuildContext context) {
     return SpacePage(
@@ -26,16 +35,41 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            title: const TabBar(
-                    tabs: [
-                      Tab(text: "Вчера"),
-                      Tab(text: "Сегодня"),
-                      Tab(text: "Завтра"),
-                    ],
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              title: const TabBar(
+                tabs: [
+                  Tab(text: "Вчера"),
+                  Tab(text: "Сегодня"),
+                  Tab(text: "Завтра"),
+                ],
+              ),
+              actions: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 15.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      final bytes = await rootBundle.load(widget.sign.image);
+                      final list = bytes.buffer.asUint8List();
+                      final directory = (await getTemporaryDirectory()).path;
+                      File imgFile = File('$directory/t.png');
+                      imgFile.writeAsBytesSync(list);
+                      FullHoro? horo = horoService.state.getHoroBySign(widget.sign.sign.name);
+                      String? textLove = horo?.love.getText(currentDay);
+                      String? textCommon = horo?.common.getText(currentDay);
+                      String? textBusiness = horo?.bisiness.getText(currentDay);
+                      Share.shareFiles(['$directory/t.png'],
+                          text: "\"Общий\":\n\n" + ((textCommon != null) ? textCommon : "") + "\n\n"
+                          + "\"Любовь\":\n\n" + ((textLove != null) ? textLove : "") + "\n\n"
+                          + "\"Бизнес\"\n\n" + ((textBusiness != null) ? textBusiness : ""));
+                    },
+                    child: Icon(
+                      Icons.share,
+                      size: 26.0,
+                    ),
                   ),
-          ),
+                ),
+              ]),
           body: Column(
             children: [
               Padding(
@@ -45,9 +79,9 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    HoroscopePage(sign: widget.sign, day: "yesterday"),
-                    HoroscopePage(sign: widget.sign, day: "today"),
-                    HoroscopePage(sign: widget.sign, day: "tomorrow"),
+                    HoroscopePage(sign: widget.sign, day: "yesterday", notifyParent: refresh),
+                    HoroscopePage(sign: widget.sign, day: "today", notifyParent: refresh),
+                    HoroscopePage(sign: widget.sign, day: "tomorrow", notifyParent: refresh),
                   ],
                 ),
               ),
@@ -57,13 +91,20 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
       ),
     );
   }
+
+  refresh(String day) {
+    currentDay = day;
+    setState(() {});
+  }
 }
 
 class HoroscopePage extends StatefulWidget {
   final ZodiacSign sign;
   final String day;
 
-  const HoroscopePage({Key? key, required this.sign, required this.day})
+  final Function(String day) notifyParent;
+
+  const HoroscopePage({Key? key, required this.sign, required this.day, required this.notifyParent})
       : super(key: key);
 
   @override
@@ -77,18 +118,10 @@ class _HoroscopeBodyScreenState extends State<HoroscopePage> {
 
   @override
   void initState() {
-    textLove = horoService.state
-        .getHoroBySign(widget.sign.sign.name)
-        ?.love
-        .getText(widget.day);
-    textCommon = horoService.state
-        .getHoroBySign(widget.sign.sign.name)
-        ?.common
-        .getText(widget.day);
-    textBusiness = horoService.state
-        .getHoroBySign(widget.sign.sign.name)
-        ?.bisiness
-        .getText(widget.day);
+    FullHoro? horo = horoService.state.getHoroBySign(widget.sign.sign.name);
+    textLove = horo?.love.getText(widget.day);
+    textCommon = horo?.common.getText(widget.day);
+    textBusiness = horo?.bisiness.getText(widget.day);
     super.initState();
   }
 
