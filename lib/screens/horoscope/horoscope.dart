@@ -2,13 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:horoscope_sirius_2021/common_widgets/circle_text.dart';
-import 'package:horoscope_sirius_2021/common_widgets/horoscope_body.dart';
 import 'package:horoscope_sirius_2021/common_widgets/icon_title.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:social_share/social_share.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../common_widgets/horoscope_content.dart';
@@ -90,11 +88,11 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> with SingleTickerProv
                       // TODO: COPY PASTE
                       FullHoro? horo = horoService.state.getHoroBySign(widget.sign.sign.name);
                       String? textLove = horo?.love.getText(currentDay);
-                      String? textCommon = horo?.common.getText(currentDay);
+                      String? textCommon = horo?.health.getText(currentDay);
                       String? textBusiness = horo?.bisiness.getText(currentDay);
 
                       Share.shareFiles(['$directory/t.png'],
-                          text: "\"Общий\":\n\n" + ((textCommon != null) ? textCommon : "") + "\n\n"
+                          text: "\"Здоровье\":\n\n" + ((textCommon != null) ? textCommon : "") + "\n\n"
                           + "\"Любовь\":\n\n" + ((textLove != null) ? textLove : "") + "\n\n"
                           + "\"Бизнес\"\n\n" + ((textBusiness != null) ? textBusiness : ""));
                     },
@@ -162,14 +160,15 @@ class _HoroscopeBodyScreenState extends State<HoroscopePage> {
       HoroscopeContent(
         circles: [
           CircleText(
+              title: "Здоровье",
+              angle: getAngle(widget.sign.sign.name, 1, widget.day),
+              color: Colors.green),
+          CircleText(
             title: "Любовь",
             angle: getAngle(widget.sign.sign.name, 0, widget.day),
             color: Colors.red,
           ),
-          CircleText(
-              title: "Здоровье",
-              angle: getAngle(widget.sign.sign.name, 1, widget.day),
-              color: Colors.green),
+
           CircleText(
             title: "Бизнес",
             angle: getAngle(widget.sign.sign.name, 2, widget.day),
@@ -178,7 +177,7 @@ class _HoroscopeBodyScreenState extends State<HoroscopePage> {
         ],
         content: [
           const IconTitle(
-              icon: Icon(Icons.star, color: Colors.cyan), title: "Общий"),
+              icon: Icon(Icons.star, color: Colors.cyan), title: "Здоровье"),
           Horoscopecontent(text: textCommon),
           const IconTitle(
               icon: Icon(Icons.favorite, color: Colors.red), title: "Любовь"),

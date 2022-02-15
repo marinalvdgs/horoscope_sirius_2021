@@ -65,7 +65,8 @@ class HoroscopeApi {
     var loveList = await _getHorosByUrl(horoApiMap['love']);
     var bisinessList = await _getHorosByUrl(horoApiMap['bisiness']);
     var commonList = await _getHorosByUrl(horoApiMap['common']);
-    if (loveList == null || bisinessList == null || commonList == null) {
+    var healthList = await _getHorosByUrl(horoApiMap['health']);
+    if (loveList == null || bisinessList == null || commonList == null || healthList == null) {
       return null;
     }
     List<FullHoro> result = List.empty(growable: true);
@@ -74,7 +75,9 @@ class HoroscopeApi {
           sign: sign,
           love: loveList[sign]!,
           bisiness: bisinessList[sign]!,
-          common: commonList[sign]!));
+          common: commonList[sign]!,
+          health : healthList[sign]!),
+      );
     }
     return result;
   }
@@ -98,5 +101,6 @@ class HoroscopeApi {
 Map<String, String> horoApiMap = {
   'love': '/ero.xml',
   'common': '/com.xml',
-  'bisiness': '/bus.xml'
+  'bisiness': '/bus.xml',
+  'health': '/hea.xml',
 };

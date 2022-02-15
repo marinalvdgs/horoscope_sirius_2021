@@ -5,6 +5,7 @@ class FullHoro {
   Horo love;
   Horo bisiness;
   Horo common;
+  Horo health;
 
   FullHoro(
       {
@@ -12,6 +13,7 @@ class FullHoro {
       required this.love,
       required this.bisiness,
       required this.common,
+      required this.health
       });
 }
 

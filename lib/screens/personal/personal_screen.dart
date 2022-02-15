@@ -8,6 +8,8 @@ import 'package:horoscope_sirius_2021/screens/horoscope/horoscope.dart';
 import 'package:horoscope_sirius_2021/services/balaboba_service.dart';
 import 'package:horoscope_sirius_2021/services/user_service.dart';
 
+import '../../services/horoscope_service.dart';
+
 class PersonalScreen extends StatefulWidget {
   const PersonalScreen({Key? key}) : super(key: key);
 
@@ -35,7 +37,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                 children: [
                   HoroscopeMainPicture(sign: zodiacSign),
                   Text(
-                    '$name, \nзвёзды предсказывают',
+                    '$name, \nзвёзды предсказали',
                     style: subtitleTextStyle,
                     maxLines: 2,
                     textAlign: TextAlign.center,
@@ -59,28 +61,40 @@ class _PersonalScreenState extends State<PersonalScreen> {
           ),
         ),
         content: [
-          FutureBuilder<String>(
-              future: balabobaService.state
-                  .getBalaboba(name + ", " + zodiacSign.sign.title),
-              // a previously-obtained Future<String> or null
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if (snapshot.hasData) {
-                  return SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Text(snapshot.data!,
-                              style: headerMenuStyle.copyWith(fontSize: 20)),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return MagicLoader();
-                }
-              })
+          SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text("Личный гороскоп на сегодня:\n\n" + horoService.state.getHoroBySign(zodiacSign.sign.name)!.common.today,
+                      style: headerMenuStyle.copyWith(fontSize: 20)),
+                ),
+              ],
+            ),
+          )
+          // FutureBuilder<String>(
+          //     future: balabobaService.state
+          //         .getBalaboba(name + ", " + zodiacSign.sign.title),
+          //     // a previously-obtained Future<String> or null
+          //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          //       if (snapshot.hasData) {
+          //         return SingleChildScrollView(
+          //           physics: const BouncingScrollPhysics(),
+          //           child: Column(
+          //             children: [
+          //               Padding(
+          //                 padding: const EdgeInsets.all(20),
+          //                 child: Text(snapshot.data!,
+          //                     style: headerMenuStyle.copyWith(fontSize: 20)),
+          //               ),
+          //             ],
+          //           ),
+          //         );
+          //       } else {
+          //         return MagicLoader();
+          //       }
+          //     })
         ],
         circles: null,
       ),
