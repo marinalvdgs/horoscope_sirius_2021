@@ -23,9 +23,40 @@ class HoroscopeScreen extends StatefulWidget {
   _HoroscopeScreenState createState() => _HoroscopeScreenState();
 }
 
-class _HoroscopeScreenState extends State<HoroscopeScreen> {
+class _HoroscopeScreenState extends State<HoroscopeScreen> with SingleTickerProviderStateMixin {
 
   String currentDay = "yesterday";
+
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 3);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      switch (_tabController.index) {
+        case 0:
+          currentDay = "yesterday";
+          break;
+        case 1:
+          currentDay = "today";
+          break;
+        case 2:
+          currentDay = "tomorrow";
+          break;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +68,8 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
           appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.transparent,
-              title: const TabBar(
+              title: TabBar(
+                controller: _tabController,
                 tabs: [
                   Tab(text: "Вчера"),
                   Tab(text: "Сегодня"),
@@ -54,10 +86,13 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
                       final directory = (await getTemporaryDirectory()).path;
                       File imgFile = File('$directory/t.png');
                       imgFile.writeAsBytesSync(list);
+
+                      // TODO: COPY PASTE
                       FullHoro? horo = horoService.state.getHoroBySign(widget.sign.sign.name);
                       String? textLove = horo?.love.getText(currentDay);
                       String? textCommon = horo?.common.getText(currentDay);
                       String? textBusiness = horo?.bisiness.getText(currentDay);
+
                       Share.shareFiles(['$directory/t.png'],
                           text: "\"Общий\":\n\n" + ((textCommon != null) ? textCommon : "") + "\n\n"
                           + "\"Любовь\":\n\n" + ((textLove != null) ? textLove : "") + "\n\n"
@@ -78,10 +113,12 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
               ),
               Expanded(
                 child: TabBarView(
+                  controller: _tabController,
+
                   children: [
-                    HoroscopePage(sign: widget.sign, day: "yesterday", notifyParent: refresh),
-                    HoroscopePage(sign: widget.sign, day: "today", notifyParent: refresh),
-                    HoroscopePage(sign: widget.sign, day: "tomorrow", notifyParent: refresh),
+                    HoroscopePage(sign: widget.sign, day: "yesterday"),
+                    HoroscopePage(sign: widget.sign, day: "today"),
+                    HoroscopePage(sign: widget.sign, day: "tomorrow"),
                   ],
                 ),
               ),
@@ -91,23 +128,14 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
       ),
     );
   }
-
-  refresh(String day) {
-    currentDay = day;
-    setState(() {});
-  }
 }
 
 class HoroscopePage extends StatefulWidget {
   final ZodiacSign sign;
   final String day;
 
-  final Function(String day) notifyParent;
-
-  // TODO: it's should be const only change the current day in parent
-  HoroscopePage({Key? key, required this.sign, required this.day, required this.notifyParent})
+  HoroscopePage({Key? key, required this.sign, required this.day})
       : super(key: key) {
-    notifyParent(day);
   }
 
   @override
