@@ -2,13 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:horoscope_sirius_2021/common_widgets/circle_text.dart';
-import 'package:horoscope_sirius_2021/common_widgets/horoscope_body.dart';
 import 'package:horoscope_sirius_2021/common_widgets/icon_title.dart';
 import 'package:horoscope_sirius_2021/common_widgets/space_page.dart';
 import 'package:horoscope_sirius_2021/models/zodiac_sign.dart';
 import 'package:horoscope_sirius_2021/services/horoscope_service.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:social_share/social_share.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../common_widgets/horoscope_content.dart';
