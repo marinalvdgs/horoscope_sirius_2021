@@ -21,13 +21,14 @@ class FullHoroHiveModelAdapter extends TypeAdapter<FullHoroHiveModel> {
       love: fields[1] as Horo,
       bisiness: fields[2] as Horo,
       common: fields[3] as Horo,
+      health: fields[4] as Horo,
     );
   }
 
   @override
   void write(BinaryWriter writer, FullHoroHiveModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.sign)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class FullHoroHiveModelAdapter extends TypeAdapter<FullHoroHiveModel> {
       ..writeByte(2)
       ..write(obj.bisiness)
       ..writeByte(3)
-      ..write(obj.common);
+      ..write(obj.common)
+      ..writeByte(4)
+      ..write(obj.health);
   }
 
   @override
